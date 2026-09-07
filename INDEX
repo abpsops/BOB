@@ -1,139 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f6f3e9">
+<meta name="theme-color" content="#f5f2e8">
 <meta name="referrer" content="no-referrer">
-<title>BOB — Your little pixel pal</title>
+<title>BOB — Little monkey, big heart</title>
 <style>
 :root{
-  --bg:#f6f3e9;--card:#fffef9;--ink:#293d32;
-  --muted:#697665;--green:#365e45;--line:#e0e5d6;
+  --bg:#f5f2e8;--card:#fffef9;--ink:#293b31;--muted:#697563;
+  --line:#e1e5d7;--green:#365c44;--light:#edf2e4;--gold:#dab56e;
+  --shadow:0 12px 34px #283c2507;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+  font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input,textarea,select{font:inherit}
-button{cursor:pointer;color:inherit}
-button:disabled{cursor:wait;opacity:.55}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,
-textarea:focus-visible{outline:3px solid #b58335;outline-offset:3px}
-button{transition:background .15s,transform .15s}
-header,main{max-width:1160px;margin:auto}
-header{display:flex;align-items:center;gap:22px;padding:23px 28px;
+button{cursor:pointer;color:inherit;touch-action:manipulation}
+button:disabled{opacity:.5;cursor:not-allowed}
+button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid #b48032;outline-offset:4px}
+button{transition:transform .15s,background .15s,box-shadow .15s}
+button:not(:disabled):active{transform:translateY(1px)}
+a{color:var(--green)}
+header,main{max-width:1250px;margin:auto}
+header{display:flex;align-items:center;gap:23px;padding:22px 30px;
   border-bottom:1px solid var(--line)}
-.logo{font-weight:900;font-size:39px;letter-spacing:-4px}
-.logo span{color:#bc884d}
-.tagline{color:var(--muted);font-size:12px}
-.badge{margin-left:auto;background:#edf1e3;padding:8px 12px;
-  border:1px solid #dbe2cd;border-radius:30px;font-size:10px}
-main{padding:0 28px}
-.intro{display:flex;justify-content:space-between;align-items:end;gap:22px;
-  padding:34px 0 27px}
-.eyebrow{font-size:9px;letter-spacing:2px;font-weight:750;color:#74816b}
-h1{font-family:Georgia,serif;font-size:58px;font-weight:400;
-  letter-spacing:-2px;line-height:1.05;margin:14px 0 0}
-.intro p{color:var(--muted);font-size:14px;line-height:1.9;margin-bottom:3px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.card{border:1px solid var(--line);background:var(--card);
-  border-radius:21px;overflow:hidden;box-shadow:0 8px 30px #263d2905}
-.heading{padding:23px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-h2{font-size:23px;letter-spacing:-.7px;margin:6px 0 0}
-.subtitle{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0}
-.level{font-size:8px;letter-spacing:1px;white-space:nowrap;
-  background:#faf4df;border:1px solid #e5dec3;border-radius:7px;padding:8px}
-.garden{height:310px;position:relative;overflow:hidden;background:#e5eedb;
-  border-radius:13px;margin:0 14px;isolation:isolate}
-.sun{position:absolute;right:43px;top:38px;width:46px;height:46px;
-  border-radius:50%;background:#f6d683;box-shadow:0 0 0 10px #f6d68325}
-.cloud{position:absolute;left:30px;top:70px;width:76px;height:19px;
-  border-radius:30px;background:#f9fff1}
-.cloud:before{content:"";position:absolute;width:34px;height:30px;
-  left:16px;top:-14px;border-radius:50%;background:inherit}
-.cloud.two{left:auto;right:22px;top:117px;transform:scale(.65)}
-.hill{position:absolute;bottom:22px;left:-100px;width:390px;height:160px;
-  background:#c5d7b3;border-radius:50%;z-index:-1}
-.hill.two{left:auto;right:-180px;background:#b4cba1;height:198px}
-.ground{position:absolute;bottom:0;height:53px;width:100%;
-  background:#a5bd90;border-top:7px solid #91ae7e;z-index:-1}
-#pet{position:absolute;width:240px;height:240px;left:50%;bottom:19px;
-  transform:translateX(-50%);image-rendering:pixelated;animation:bob 3s ease-in-out infinite}
-@keyframes bob{50%{transform:translate(-50%,-6px)}}
-#bubble{position:absolute;z-index:2;top:21px;left:50%;transform:translateX(-50%);
-  background:#fffef3;border:1px solid #d4dfc7;border-radius:14px;
-  padding:11px 15px;font-size:11px;text-align:center;width:max-content;max-width:94%}
-.flower{position:absolute;bottom:38px;left:33px;color:#ffefab;font-size:23px}
-.flower.two{left:auto;right:42px;font-size:18px;color:#fffbea}
-.garden-label{position:absolute;bottom:13px;left:16px;font-size:8px;
-  letter-spacing:2px;color:#3b5634}
-.pet-bottom{padding:20px 23px}
-.mood-row{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-bottom:17px}
-#mood:before{content:"● ";color:#71915f}
-.small-muted{color:var(--muted);font-size:10px}
-.care{display:flex;gap:8px}
-.care button{flex:1;border:1px solid var(--line);background:#f9faf1;
-  border-radius:11px;padding:13px 4px;font-size:11px}
-.care button:hover{transform:translateY(-2px);background:#edf2e3}
-.care span{display:block;font-size:23px;margin-bottom:6px}
-.pet-note{text-align:center;font-size:10px;color:var(--muted);margin:17px 0 0}
-.chat{height:598px;display:flex;flex-direction:column}
-.icon{background:transparent;border:0;min-width:36px;min-height:36px;font-size:20px}
-.tabs{display:flex;gap:4px;margin:0 22px;background:#f0f2e8;padding:4px;border-radius:10px}
-.tabs button{flex:1;padding:10px 3px;border:0;background:transparent;border-radius:7px;font-size:11px}
-.tabs button[aria-pressed=true]{background:var(--card);box-shadow:0 2px 5px #2339230a;font-weight:650}
-#messages{flex:1;min-height:0;overflow-y:auto;padding:20px 22px 5px}
-.message{max-width:95%;margin-bottom:17px}
+.logo{font-weight:950;font-size:40px;letter-spacing:-4px;line-height:1}
+.logo span{color:#b77e40}
+.tagline{font-size:11px;color:var(--muted)}
+.header-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.badge{font-size:10px;padding:7px 11px;border:1px solid #dce3ce;
+  background:#edf1e3;border-radius:30px}
+.icon{border:0;background:transparent;font-size:21px;min-height:40px;min-width:40px;border-radius:9px}
+.icon:hover{background:#e7ebdd}
+main{padding:0 30px}
+.hero{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:31px 0 25px}
+.eyebrow{font-size:9px;font-weight:750;letter-spacing:2px;color:#738168}
+h1{font:normal 57px/1.04 Georgia,serif;letter-spacing:-2px;margin:13px 0 0}
+.hero p{font-size:13px;color:var(--muted);line-height:1.9;margin:0 0 3px}
+.workspace{display:grid;grid-template-columns:1.03fr 1fr;gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;
+  box-shadow:var(--shadow);overflow:hidden}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:21px 23px 17px}
+h2{font-size:23px;letter-spacing:-.6px;margin:5px 0 0}
+.subtitle{font-size:11px;font-weight:400;letter-spacing:0;color:var(--muted)}
+.level{font-size:8px;letter-spacing:1px;padding:8px;border-radius:7px;white-space:nowrap;
+  border:1px solid #e5ddbf;background:#faf5e4}
+.scene-wrap{position:relative;margin:0 14px;border-radius:14px;overflow:hidden;background:#dce9d1}
+#scene{display:block;width:100%;height:auto;image-rendering:pixelated;aspect-ratio:240/184}
+#pet-touch{position:absolute;width:50%;height:62%;left:25%;top:32%;
+  border:0;background:transparent;border-radius:30px}
+#pet-touch:focus-visible{outline-offset:-5px}
+#bubble{position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  width:max-content;max-width:91%;padding:10px 15px;border:1px solid #d8dfcb;
+  background:#fffef3f5;border-radius:13px;font-size:11px;text-align:center;
+  box-shadow:0 3px 8px #27382008;pointer-events:none}
+.scene-tools{position:absolute;left:11px;bottom:10px;display:flex;gap:6px}
+.scene-tools button{background:#fffef2e8;border:1px solid #ffffff77;padding:6px 9px;
+  border-radius:7px;font-size:10px}
+.scene-tag{position:absolute;right:13px;bottom:16px;font-size:8px;
+  letter-spacing:1px;color:#2f492c;background:#fffce4b8;padding:3px 6px;border-radius:4px}
+.pet-bottom{padding:17px 22px 20px}
+.mood-row{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:15px}
+.dot{width:6px;height:6px;background:#769660;border-radius:50%}
+#moment{margin-left:auto;color:var(--muted);font-size:9px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.actions button{padding:12px 3px;border:1px solid var(--line);background:#fafbf3;
+  border-radius:11px;font-size:10px}
+.actions button:hover{background:#eef2e4;transform:translateY(-2px)}
+.actions span{display:block;font-size:23px;margin-bottom:5px}
+.pet-note{font-size:9px;text-align:center;color:var(--muted);margin:14px 0 0}
+.chat{display:flex;flex-direction:column;height:650px}
+.tabs{display:flex;gap:4px;margin:0 21px;background:#f0f2e9;padding:4px;border-radius:10px}
+.tabs button{flex:1;border:0;background:transparent;padding:10px 3px;border-radius:7px;font-size:11px}
+.tabs [aria-pressed=true]{background:#fffef9;font-weight:700;box-shadow:0 2px 5px #25372009}
+#mode-note{font-size:9px;color:var(--muted);margin:10px 23px 0}
+#messages{flex:1;min-height:0;overflow-y:auto;padding:17px 21px 4px}
+.message{max-width:96%;margin-bottom:17px}
 .message.user{margin-left:auto}
-.label{font-size:9px;letter-spacing:1px;font-weight:750;margin-bottom:6px;color:#65765c}
+.label{font-size:9px;letter-spacing:1px;font-weight:700;color:#718065;margin-bottom:6px}
 .user .label{text-align:right}
-.text{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef3e6;
-  padding:13px 15px;border-radius:0 13px 13px;line-height:1.75;font-size:13px}
-.user .text{background:var(--green);color:#fff;border-radius:13px 0 13px 13px}
-.meta{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.6}
-.meta a{color:var(--green)}
-#suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:7px 22px 12px}
-#suggestions button{background:var(--card);border:1px solid var(--line);
-  border-radius:22px;padding:7px 10px;font-size:10px}
-form{padding:0 18px 15px}
-.composer{display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #d5dfcc;
-  border-radius:12px;background:white}
-.composer:focus-within{outline:2px solid #8ca575}
-textarea{flex:1;min-width:0;resize:none;border:0;outline:none;background:transparent;
-  padding:6px;font-size:12px;line-height:1.6;color:var(--ink)}
-#send{border:0;background:var(--green);color:white;border-radius:8px;width:37px;height:37px;font-size:24px}
-.input-note{display:flex;justify-content:space-between;gap:10px;font-size:9px;
-  color:var(--muted);margin:8px 4px 0}
-.voice-panel{display:flex;align-items:center;justify-content:space-between;gap:15px;
-  border:1px solid var(--line);border-radius:13px;padding:17px 20px;
-  background:#eff0e4;margin-top:21px;font-size:11px}
-.voice-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;font-size:12px;
+  padding:12px 14px;border-radius:0 12px 12px;background:#eef3e6}
+.user .text{background:var(--green);color:#fff;border-radius:12px 0 12px 12px}
+.meta{color:var(--muted);font-size:9px;margin-top:5px;line-height:1.7}
+.replay{font-size:10px;border:0;background:transparent;padding:4px 1px;color:var(--muted)}
+#suggestions{display:flex;gap:6px;flex-wrap:wrap;padding:7px 21px 12px}
+#suggestions button{font-size:10px;background:transparent;border:1px solid var(--line);
+  border-radius:20px;padding:6px 10px}
+#chat-form{padding:0 17px 14px}
+.composer{display:flex;align-items:center;gap:5px;border:1px solid #d6dfcd;
+  border-radius:12px;padding:7px;background:#fff}
+.composer:focus-within{outline:2px solid #91a979}
+textarea{flex:1;min-width:0;background:transparent;border:0;resize:none;
+  color:var(--ink);padding:6px;font-size:12px;line-height:1.65;outline:none}
+#send{height:37px;width:37px;border:0;border-radius:8px;background:var(--green);color:#fff;font-size:23px}
+.input-note{display:flex;justify-content:space-between;gap:8px;margin:8px 3px 0;font-size:9px;color:var(--muted)}
+.activities{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.activity{display:flex;gap:13px;align-items:center;text-align:left;padding:17px;
+  background:var(--card);border:1px solid var(--line);border-radius:13px}
+.activity:hover{background:#eef2e4}
+.activity .emoji{font-size:27px}
+.activity strong{display:block;font-size:12px}
+.activity small{font-size:10px;color:var(--muted)}
+.activity .arrow{margin-left:auto;color:#819073}
+.voice-bar{margin-top:17px;padding:16px 19px;border:1px solid var(--line);
+  border-radius:12px;background:#edf0e3;display:flex;align-items:center;
+  justify-content:space-between;gap:15px;font-size:11px}
+.voice-controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
 .voice-controls label{display:flex;gap:5px;align-items:center}
+select,.small-button{padding:7px;border:1px solid #d4ddc9;background:#fffef9;border-radius:7px;
+  font-size:10px;color:var(--ink)}
+select{max-width:185px}
 input[type=checkbox]{accent-color:var(--green)}
-select{max-width:180px}
-select,.small-button{border:1px solid #d6decc;background:var(--card);
-  border-radius:6px;padding:7px;font-size:10px;color:var(--ink)}
-footer{padding:22px 0 30px;color:var(--muted);font-size:10px;line-height:1.8}
-footer p{margin:5px 0}
-details{margin-top:9px}
-summary{cursor:pointer}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
-  clip:rect(0,0,0,0);white-space:nowrap}
-@media(max-width:850px){
-  .grid{grid-template-columns:1fr}
-  .intro{display:block}.intro p{margin-top:18px}
-  .voice-panel{align-items:flex-start;flex-direction:column}
-  h1{font-size:51px}.chat{height:600px}
-}
-@media(max-width:480px){
-  header{padding:18px 16px}main{padding:0 15px}.tagline{display:none}
-  h1{font-size:46px}.intro{padding-top:28px}.intro p{font-size:13px}
-  .heading{padding:20px 17px}.subtitle{display:block;margin-top:4px}
-  .level{font-size:7px}.tabs{margin:0 15px}#messages{padding-left:15px;padding-right:15px}
-  .garden{height:295px}.mood-row .small-muted{display:none}
-}
+footer{font-size:9px;color:var(--muted);line-height:1.9;padding:21px 0 30px;
+  display:flex;justify-content:space-between;gap:20px}
+dialog{padding:0;border:1px solid #dce2d1;background:var(--card);color:var(--ink);
+  border-radius:20px;max-width:500px;width:calc(100% - 30px);max-height:88vh;
+  box-shadow:0 25px 100px #10271838}
+dialog::backdrop{background:#1b2e246b;backdrop-filter:blur(4px)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;padding:20px 23px 10px;gap:12px}
+.dialog-head h2{font-size:23px}
+.dialog-body{padding:8px 23px 25px}
+.dialog-body p{font-size:12px;line-height:1.8;color:var(--muted)}
+.setting-row{padding:14px 0;border-bottom:1px solid var(--line);display:flex;
+  justify-content:space-between;gap:18px;align-items:center;font-size:12px}
+.setting-row small{display:block;color:var(--muted);margin-top:3px;font-size:10px}
+.primary{background:var(--green);color:white;border:0;border-radius:9px;padding:10px 15px;font-size:12px}
+.secondary{background:#f0f3e7;border:1px solid #dce3cf;border-radius:9px;padding:10px 15px;font-size:12px}
+.danger{margin-top:17px;color:#874c39}
+.game-status{font-size:12px;margin:13px 0;color:var(--muted);min-height:20px}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.memory-card{aspect-ratio:1;border:1px solid #dbe3cd;border-radius:12px;
+  background:#eaf0df;font-size:27px;min-width:0}
+.memory-card.matched{background:#dce9cb;border-color:#b9cda4}
+.quiz-options{display:grid;gap:8px;margin:15px 0}
+.quiz-options button{text-align:left;border:1px solid var(--line);border-radius:9px;
+  background:#f1f4e9;padding:11px 14px;font-size:12px}
+#quiz-question{font-size:17px;line-height:1.6;color:var(--ink)}
+.breath-wrap{display:flex;align-items:center;justify-content:center;height:210px}
+.breath-circle{width:145px;height:145px;border-radius:50%;background:#dfeacd;
+  border:1px solid #c4d5b0;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 16px #eaf0df,0 0 0 31px #f2f5eb;font-size:24px}
+.breath-circle.active{animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.12)}}
+.center{text-align:center}
+#breath-status{min-height:42px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+body.reduce *,body.reduce *::before,body.reduce *::after{animation:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation:none!important;transition:none!important}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media(max-width:920px){
+  .workspace{grid-template-columns:1fr}
+  .hero p{max-width:260px}
+  .chat{height:620px}
+  .scene-wrap{max-height:none}
+  .voice-bar{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:610px){
+  header{padding:19px 16px;gap:12px}main{padding:0 15px}
+  .tagline{display:none}.badge{font-size:9px}
+  .hero{display:block;padding-top:26px}.hero p{max-width:none;margin-top:18px;font-size:12px}
+  h1{font-size:47px}
+  .activities{grid-template-columns:1fr;gap:9px}
+  .activity{padding:13px 16px}.activity .emoji{font-size:23px}
+  .subtitle{display:block;font-size:10px;margin-top:3px}
+  .card-head{padding:20px 17px 16px}.level{font-size:7px}
+  #moment{display:none}.pet-bottom{padding:16px}
+  .tabs{margin:0 15px}#messages{padding-left:15px;padding-right:15px}
+  footer{flex-direction:column;gap:6px}
+  .scene-tag{display:none}
+  .voice-controls{gap:7px}select{max-width:150px}
 }
 </style>
 </head>
@@ -141,542 +181,1166 @@ summary{cursor:pointer}
 <header>
   <div class="logo" aria-label="BOB">b<span>o</span>b.</div>
   <span class="tagline">a little friend. a curious mind.</span>
-  <span class="badge">● Browser edition · no AI key</span>
+  <div class="header-right">
+    <span class="badge">● Browser companion</span>
+    <button id="open-settings" class="icon" aria-label="Open settings" title="Settings">⚙</button>
+  </div>
 </header>
 
 <main>
-  <section class="intro">
+  <section class="hero">
     <div>
       <div class="eyebrow">YOUR LITTLE CORNER OF THE INTERNET</div>
-      <h1>Big feelings.<br>Little monkey.</h1>
+      <h1>Little monkey.<br>A brighter day.</h1>
     </div>
-    <p>A softer place to land. Something new to learn.<br>
-      And a pixel-sized pal to brighten your day.</p>
+    <p>A soft place to pause. A new thing to learn.<br>
+      And a banana-loving buddy along for the ride.<br>
+      No streaks. No pressure. Just a little BOB.</p>
   </section>
 
-  <div class="grid">
-    <section class="card" aria-labelledby="pet-title">
-      <div class="heading">
+  <div class="workspace">
+    <section class="card" aria-labelledby="bob-title">
+      <div class="card-head">
         <div>
-          <div class="eyebrow">MEET YOUR COMPANION</div>
-          <h2 id="pet-title">BOB <span class="subtitle">the curious monkey</span></h2>
+          <div class="eyebrow">MEET YOUR PIXEL PAL</div>
+          <h2 id="bob-title">BOB <span class="subtitle">small paws, big curiosity</span></h2>
         </div>
-        <span class="level">★ LITTLE EXPLORER</span>
+        <span class="level">★ CERTIFIED BANANA ENTHUSIAST</span>
       </div>
-      <div class="garden">
-        <div class="sun"></div><div class="cloud"></div><div class="cloud two"></div>
-        <div class="hill"></div><div class="hill two"></div><div class="ground"></div>
-        <div id="bubble" role="status">Hey, you. Glad you're here!</div>
-        <canvas id="pet" width="192" height="192" role="img"
-          aria-label="BOB, a smiling brown pixel monkey in a green shirt"></canvas>
-        <span class="flower">✿</span><span class="flower two">✿</span>
-        <span class="garden-label">BOB'S HAPPY PLACE</span>
+
+      <div class="scene-wrap">
+        <canvas id="scene" width="240" height="184" role="img"
+          aria-label="BOB, a brown pixel monkey with a curly tail, in a leafy garden"></canvas>
+        <button id="pet-touch" aria-label="Give BOB a friendly wave" title="Say hello to BOB"></button>
+        <div id="bubble" role="status">Hey, you. Glad you're here! 🍌</div>
+        <div class="scene-tools">
+          <button id="time-button" title="Change day or night">☀ Day</button>
+          <button id="weather-button" title="Change the weather">☁ Clear</button>
+        </div>
+        <span class="scene-tag">BOB'S HAPPY PLACE</span>
       </div>
+
       <div class="pet-bottom">
         <div class="mood-row">
-          <span id="mood">Feeling curious</span>
-          <span class="small-muted">little moments, big smiles</span>
+          <span class="dot"></span><span id="mood">Feeling curious</span>
+          <span id="moment">little moments, big smiles</span>
         </div>
-        <div class="care">
-          <button id="feed"><span>🍌</span>Snack time</button>
-          <button id="play"><span>🫧</span>Let's play</button>
-          <button id="rest"><span>🌙</span>Take a rest</button>
+        <div class="actions">
+          <button id="feed"><span>🍌</span>Snack</button>
+          <button id="dance"><span>♪</span>Dance</button>
+          <button id="sleep"><span>🌙</span>Rest</button>
+          <button id="outfit"><span>👒</span>Outfit</button>
         </div>
-        <p class="pet-note">No streaks. No guilt. Visit whenever you like.</p>
+        <p class="pet-note">BOB never loses health or happiness when you're away.</p>
       </div>
     </section>
 
     <section class="card chat" aria-labelledby="chat-title">
-      <div class="heading">
+      <div class="card-head">
         <div>
-          <div class="eyebrow">A SPACE FOR YOU</div>
-          <h2 id="chat-title">What's on your mind?</h2>
+          <div class="eyebrow">A LITTLE SPACE FOR YOU</div>
+          <h2 id="chat-title">What shall we explore?</h2>
         </div>
-        <button id="clear" class="icon" title="Clear conversation"
-          aria-label="Clear conversation">↺</button>
+        <button id="clear-chat" class="icon" title="Clear conversation" aria-label="Clear conversation">↺</button>
       </div>
-      <div class="tabs" role="group" aria-label="Choose a mode">
+      <div class="tabs" role="group" aria-label="Companion mode">
         <button data-mode="support" aria-pressed="true">♡ Support</button>
         <button data-mode="teacher" aria-pressed="false">✧ Teacher</button>
         <button data-mode="encyclopedia" aria-pressed="false">◎ Encyclopedia</button>
       </div>
+      <p id="mode-note">Preset exercises, not personalized counseling.</p>
       <div id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
       <div id="suggestions"></div>
-      <form id="form">
-        <label for="question" class="sr-only">Message or topic for BOB</label>
+      <form id="chat-form">
+        <label class="sr-only" for="question">Message or topic</label>
         <div class="composer">
           <textarea id="question" rows="2" maxlength="500"
-            placeholder="Choose an exercise, or type a topic…" required></textarea>
-          <button id="send" aria-label="Send message" type="submit">↑</button>
+            placeholder="Try a calming pause or choose an activity…" required></textarea>
+          <button id="send" type="submit" aria-label="Send">↑</button>
         </div>
         <div class="input-note">
           <span>Enter to send · Shift + Enter for a new line</span>
-          <span id="status" role="status"></span>
+          <span id="chat-status" role="status"></span>
         </div>
       </form>
     </section>
   </div>
 
-  <section class="voice-panel" aria-label="Voice settings">
+  <section class="activities" aria-label="Activities with BOB">
+    <button class="activity" id="open-memory">
+      <span class="emoji">🍓</span>
+      <span><strong>Little memory garden</strong><small>Find the matching pairs. No timer.</small></span>
+      <span class="arrow">↗</span>
+    </button>
+    <button class="activity" id="open-breath">
+      <span class="emoji">🌿</span>
+      <span><strong>A softer minute</strong><small>A gentle, optional grounding pause.</small></span>
+      <span class="arrow">↗</span>
+    </button>
+    <button class="activity" id="open-quiz">
+      <span class="emoji">✨</span>
+      <span><strong>Curiosity club</strong><small>Five little questions. Learn as you go.</small></span>
+      <span class="arrow">↗</span>
+    </button>
+  </section>
+
+  <section class="voice-bar" aria-label="BOB voice settings">
     <div><strong>A familiar little voice.</strong> Let BOB read replies aloud.</div>
     <div class="voice-controls">
       <label><input id="read-aloud" type="checkbox"> Read aloud</label>
-      <label class="sr-only" for="voices">Select a voice</label>
-      <select id="voices"><option value="">Device default voice</option></select>
-      <button id="preview" class="small-button">Try voice</button>
-      <button id="stop" class="icon" title="Stop speaking" aria-label="Stop speaking">■</button>
+      <label class="sr-only" for="voice-select">Choose a voice</label>
+      <select id="voice-select"><option value="">Device default voice</option></select>
+      <button id="preview-voice" class="small-button">Try voice</button>
+      <button id="stop-voice" class="icon" title="Stop speaking" aria-label="Stop speaking">■</button>
     </div>
   </section>
 
   <footer>
-    <p>Made for curiosity. Built with a little kindness. 🍌</p>
-    <p><strong>Browser edition:</strong> preset support exercises, built-in lessons, and Wikipedia lookups—not conversational AI or professional care. Important information deserves a second check.</p>
-    <details>
-      <summary>Privacy, voice, and content notes</summary>
-      <p>Support exercises and built-in lessons run on this page. Other knowledge searches send your topic to English Wikipedia. Do not enter confidential work information or sensitive personal details.</p>
-      <p>This app does not save your chat or use analytics. Reloading clears the conversation. Hosting and external services may keep their own access logs.</p>
-      <p>Read-aloud uses your browser's speech service. Voice availability and quality vary; some voices may send text to an online speech provider. It is off by default.</p>
-      <p>Wikipedia excerpts are attributed and linked to their source articles. They remain subject to Wikipedia's applicable content licenses, including CC BY-SA. Search matches are not guaranteed to answer your question.</p>
-      <p>BOB cannot assess emergencies or reliably recognize distress. If you are in immediate danger, contact local emergency services or a trusted person nearby.</p>
-    </details>
+    <span>Made for curiosity. Built with a little kindness. 🍌</span>
+    <span>Browser edition · Not conversational AI or professional care.
+      <a href="#privacy" id="privacy-link">Privacy & limitations</a></span>
   </footer>
 </main>
 
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <div class="dialog-head">
+    <h2 id="settings-title">Make yourself at home.</h2>
+    <button class="icon" data-close aria-label="Close settings">×</button>
+  </div>
+  <div class="dialog-body">
+    <label class="setting-row">
+      <span>Gentle sound effects<small>Quiet generated chimes. Off by default.</small></span>
+      <input id="sound-setting" type="checkbox">
+    </label>
+    <label class="setting-row">
+      <span>Less movement<small>Also respects your device's reduced-motion setting.</small></span>
+      <input id="motion-setting" type="checkbox">
+    </label>
+    <label class="setting-row">
+      <span>Remember pet preferences<small>Saves outfit, scenery, and motion settings on this browser.</small></span>
+      <input id="remember-setting" type="checkbox">
+    </label>
+    <p id="save-status" role="status"></p>
+    <button class="secondary danger" id="reset">Reset pet preferences</button>
+    <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+    <h3 id="privacy">Privacy & honest limitations</h3>
+    <p>BOB is a scripted digital pet. Support uses preset exercises; Teacher offers built-in lessons; other knowledge requests search English Wikipedia. This version does not have conversational AI or long-term conversation memory.</p>
+    <p>Support text stays on this page. Wikipedia lookups send the topic to Wikipedia. Do not enter confidential work information or sensitive personal details.</p>
+    <p>Chat is not saved and disappears on reload. No analytics are included. Optional pet preferences use this browser's local storage. Hosting and external services may retain their own access logs.</p>
+    <p>Device voices vary in availability and quality. Some browser voices send text to online speech services. Read-aloud is off each time you open this page.</p>
+    <p>Wikipedia excerpts are attributed and linked. They remain subject to Wikipedia's applicable content licenses, including CC BY-SA. Search matches are not guaranteed to answer your question.</p>
+    <p>BOB cannot assess distress, diagnose conditions, or provide emergency care. If you are in immediate danger, contact local emergency services or a trusted person nearby.</p>
+  </div>
+</dialog>
+
+<dialog id="memory-dialog" aria-labelledby="memory-title">
+  <div class="dialog-head">
+    <h2 id="memory-title">Little memory garden</h2>
+    <button class="icon" data-close aria-label="Close memory game">×</button>
+  </div>
+  <div class="dialog-body">
+    <p>Turn over two cards. Find all six pairs, at your own pace.</p>
+    <div id="memory-status" class="game-status" role="status"></div>
+    <div id="memory-grid" class="memory-grid"></div>
+    <p><button id="restart-memory" class="secondary">New garden</button></p>
+  </div>
+</dialog>
+
+<dialog id="breath-dialog" aria-labelledby="breath-title">
+  <div class="dialog-head">
+    <h2 id="breath-title">A softer minute</h2>
+    <button class="icon" data-close aria-label="Close calming pause">×</button>
+  </div>
+  <div class="dialog-body center">
+    <p>One minute to notice where you are. Breathe naturally—there's no need to match the circle or hold your breath. Skip anything uncomfortable.</p>
+    <div class="breath-wrap"><div id="breath-circle" class="breath-circle">🌿</div></div>
+    <p id="breath-status" role="status">Nothing to achieve. Just a little space.</p>
+    <button id="start-breath" class="primary">Begin a gentle minute</button>
+    <button id="end-breath" class="secondary" hidden>Finish now</button>
+  </div>
+</dialog>
+
+<dialog id="quiz-dialog" aria-labelledby="quiz-title">
+  <div class="dialog-head">
+    <h2 id="quiz-title">Curiosity club</h2>
+    <button class="icon" data-close aria-label="Close quiz">×</button>
+  </div>
+  <div class="dialog-body">
+    <div id="quiz-progress" class="eyebrow"></div>
+    <p id="quiz-question"></p>
+    <div id="quiz-options" class="quiz-options"></div>
+    <p id="quiz-feedback" role="status"></p>
+    <button id="quiz-next" class="primary" hidden>Next question</button>
+  </div>
+</dialog>
+
 <script>
 "use strict";
-const $ = s => document.querySelector(s);
-const log = $("#messages");
-const input = $("#question");
-const speech = window.speechSynthesis;
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-let mode = "support";
-let busy = false;
-let sleepy = false;
-let talking = false;
-let voiceList = [];
-let petTimer;
-let lessonIndex = 0;
-let lastReply = "";
 
-const prompts = {
-  support: ["Take a calming pause", "Help me ground myself", "One small step"],
-  teacher: ["Teach me fractions", "Explain photosynthesis", "Surprise lesson"],
-  encyclopedia: ["Octopuses", "Black holes", "Ada Lovelace"]
+/* ---------- State and safe, optional preferences ---------- */
+const $ = selector => document.querySelector(selector);
+const all = selector => [...document.querySelectorAll(selector)];
+const STORAGE = "bob-garden-preferences-v2";
+const motionQuery = matchMedia("(prefers-reduced-motion: reduce)");
+const state = {
+  night: false, rain: false, outfit: 0, reduce: false,
+  remember: false, sound: false, mode: "support",
+  action: "idle", actionStart: 0, actionUntil: 0
 };
-
-const exercises = {
-  calm: "Let's make a little room to breathe.\n\n1. Sit or stand in a comfortable position.\n2. Let your shoulders soften, if that feels okay.\n3. Take three easy breaths at your natural pace—no holding or forcing.\n4. Notice one thing around you that feels neutral or pleasant.\n\nYou can stop whenever you want. One gentle pause is enough.",
-  ground: "A small grounding exercise:\n\n• Name 5 things you can see.\n• Notice 4 things you can feel, like your feet on the floor.\n• Listen for 3 sounds.\n• Notice 2 smells, or name two smells you like.\n• Name 1 kind thing you can do for yourself.\n\nAdapt or skip any step that doesn't suit you.",
-  step: "You don't have to solve the entire day at once.\n\nPick one small, manageable action:\n• Drink some water.\n• Put one item away.\n• Write down the next task—not the whole list.\n• Send a simple check-in to someone you trust.\n\nRest is a valid choice too.",
-  connect: "A real-world check-in can help make a hard moment less lonely.\n\nYou could message someone you trust:\n“Today has been a bit rough. Do you have a few minutes to talk?”\n\nYou don't need to explain everything at once. If this has been going on for a while, consider reaching out to a qualified mental health professional."
-};
-
-const lessons = [
-  {
-    title: "Fractions",
-    text: "A fraction describes parts of a whole divided into equal pieces.\n\nIn 3/4:\n• 4 is the denominator: the whole has four equal parts.\n• 3 is the numerator: you're counting three of them.\n\nExample: cut a banana into four equal pieces. Eat three, and you've eaten 3/4 of it. 🍌\n\nPractice: what is 1/4 + 2/4?\nAnswer: 3/4. With equal denominators, add the numerators."
-  },
-  {
-    title: "Photosynthesis",
-    text: "Photosynthesis is how plants, algae, and some bacteria use light energy to make chemical energy.\n\nIn plants, chlorophyll absorbs light. The process uses water and carbon dioxide to help make sugars and releases oxygen.\n\nThink of a leaf as a tiny solar-powered food factory—not as a plant eating soil.\n\nPractice: where does most of the carbon in a growing tree come from?\nAnswer: carbon dioxide in the air."
-  },
-  {
-    title: "Gravity",
-    text: "Gravity is the attraction associated with mass and energy.\n\nNear Earth's surface, it pulls things toward the ground. It also helps keep the Moon in orbit around Earth and Earth in orbit around the Sun.\n\nAn orbit is like continually falling while moving sideways fast enough to keep missing the ground.\n\nPractice: is there gravity on the Moon?\nAnswer: yes—its surface gravity is about one-sixth of Earth's."
-  },
-  {
-    title: "Why the sky is blue",
-    text: "Sunlight contains many colors. Molecules in Earth's atmosphere scatter shorter wavelengths more strongly than longer ones.\n\nBlue light is scattered across the sky, reaching your eyes from many directions. Our eyes' sensitivity and the spectrum of sunlight help explain why the sky looks blue rather than violet.\n\nAt sunset, sunlight travels through more atmosphere, so more blue light is scattered out of the direct path, often leaving warmer colors."
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE) || "null");
+  if (saved && saved.remember === true) {
+    state.remember = true;
+    state.night = saved.night === true;
+    state.rain = saved.rain === true;
+    state.reduce = saved.reduce === true;
+    state.outfit = Number.isInteger(saved.outfit) && saved.outfit >= 0 &&
+      saved.outfit <= 3 ? saved.outfit : 0;
   }
-];
+} catch {}
 
-function addMessage(role, text, source = "", url = "") {
-  const article = document.createElement("article");
-  article.className = "message " + role;
-  const label = document.createElement("div");
-  label.className = "label";
-  label.textContent = role === "user" ? "YOU" : "BOB · YOUR PIXEL PAL";
-  const body = document.createElement("div");
-  body.className = "text";
-  body.textContent = text;
-  article.append(label, body);
+function lessMotion() {
+  return state.reduce || motionQuery.matches;
+}
+function savePreferences() {
+  try {
+    if (state.remember) {
+      localStorage.setItem(STORAGE, JSON.stringify({
+        remember: true, night: state.night, rain: state.rain,
+        outfit: state.outfit, reduce: state.reduce
+      }));
+      $("#save-status").textContent = "Pet preferences saved on this browser.";
+    } else {
+      localStorage.removeItem(STORAGE);
+      $("#save-status").textContent = "Preferences are not being saved.";
+    }
+  } catch {
+    $("#save-status").textContent =
+      "This browser blocked storage. BOB still works, but preferences may not save.";
+  }
+}
+function syncPreferences() {
+  document.body.classList.toggle("reduce", state.reduce);
+  $("#time-button").textContent = state.night ? "☾ Night" : "☀ Day";
+  $("#weather-button").textContent = state.rain ? "☂ Rain" : "☁ Clear";
+  $("#sound-setting").checked = state.sound;
+  $("#motion-setting").checked = state.reduce;
+  $("#remember-setting").checked = state.remember;
+  $("#outfit").setAttribute("aria-label",
+    "Change outfit. Current: " + ["green shirt", "sun hat", "red scarf", "flower crown"][state.outfit]);
+}
+syncPreferences();
 
-  if (source) {
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    meta.textContent = source;
-    if (url) {
-      try {
-        const linkURL = new URL(url);
-        if (linkURL.protocol === "https:" && linkURL.hostname === "en.wikipedia.org") {
-          const link = document.createElement("a");
-          link.href = linkURL.href;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.textContent = " · Read source ↗";
+/* ---------- Dialogs ---------- */
+all("[data-close]").forEach(button => {
+  button.onclick = () => button.closest("dialog").close();
+});
+function openDialog(id) {
+  stopSpeech();
+  $(id).showModal();
+}
+$("#open-settings").onclick = () => openDialog("#settings-dialog");
+$("#privacy-link").onclick = event => {
+  event.preventDefault();
+  openDialog("#settings-dialog");
+  $("#privacy").scrollIntoView({block:"nearest"});
+};
+$("#motion-setting").onchange = event => {
+  state.reduce = event.target.checked;
+  syncPreferences();
+  savePreferences();
+};
+$("#remember-setting").onchange = event => {
+  state.remember = event.target.checked;
+  savePreferences();
+};
+$("#reset").onclick = () => {
+  if (!confirm("Reset BOB's outfit, scenery, sound, and saved preferences?")) return;
+  Object.assign(state, {
+    night:false, rain:false, outfit:0, reduce:false,
+    sound:false, remember:false, action:"idle", actionUntil:0
+  });
+  syncPreferences();
+  savePreferences();
+  petSay("A fresh little start. 🍃", "Feeling curious");
+};
+$("#time-button").onclick = () => {
+  state.night = !state.night;
+  syncPreferences(); savePreferences();
+};
+$("#weather-button").onclick = () => {
+  state.rain = !state.rain;
+  syncPreferences(); savePreferences();
+};
+
+/* ---------- Sound: created only after explicit opt-in ---------- */
+let audioContext;
+async function chime(notes = [523.25, 659.25]) {
+  if (!state.sound) return;
+  try {
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) throw new Error("Audio unavailable");
+    audioContext ||= new Audio();
+    await audioContext.resume();
+    const now = audioContext.currentTime;
+    notes.forEach((frequency, i) => {
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
+      gain.gain.setValueAtTime(0, now + i * .12);
+      gain.gain.linearRampToValueAtTime(.035, now + i * .12 + .015);
+      gain.gain.exponentialRampToValueAtTime(.001, now + i * .12 + .22);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(now + i * .12);
+      oscillator.stop(now + i * .12 + .24);
+      oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+    });
+  } catch {
+    state.sound = false;
+    syncPreferences();
+    $("#save-status").textContent = "Sound is unavailable in this browser.";
+  }
+}
+$("#sound-setting").onchange = event => {
+  state.sound = event.target.checked;
+  if (state.sound) chime();
+};
+
+/* ---------- Pet reactions ---------- */
+let bubbleTimer;
+function petSay(text, mood = "Feeling curious", duration = 6500) {
+  clearTimeout(bubbleTimer);
+  $("#bubble").textContent = text;
+  $("#mood").textContent = mood;
+  bubbleTimer = setTimeout(() => {
+    $("#bubble").textContent = state.night ?
+      "A tiny pocket of peace. ✨" : "One small adventure at a time.";
+    $("#mood").textContent = "Feeling curious";
+  }, duration);
+}
+function act(action, duration, text, mood) {
+  const now = performance.now();
+  state.action = action;
+  state.actionStart = now;
+  state.actionUntil = now + duration;
+  petSay(text, mood, duration);
+}
+$("#feed").onclick = () => {
+  act("eat", 5200, "A-peeling. Absolutely a-peeling. 🍌", "Enjoying a snack");
+  chime([392, 523.25]);
+};
+$("#dance").onclick = () => {
+  act("dance", 6500, "Tiny dance break? You're invited! ♪", "Feeling playful");
+  chime([523.25, 659.25, 783.99]);
+};
+$("#sleep").onclick = () => {
+  if (state.action === "sleep" && performance.now() < state.actionUntil) {
+    act("wave", 3000, "That was cozy. Hello again!", "Feeling refreshed");
+  } else {
+    act("sleep", 20000, "Rest counts, too. zzz", "Taking a cozy pause");
+  }
+};
+$("#outfit").onclick = () => {
+  state.outfit = (state.outfit + 1) % 4;
+  syncPreferences(); savePreferences();
+  act("wave", 3300, [
+    "Classic BOB. Timeless banana style.",
+    "Sun hat on. Adventure ready!",
+    "A cozy scarf for a cozy monkey.",
+    "Flower crown? Naturally. 🌼"
+  ][state.outfit], "Feeling stylish");
+};
+$("#pet-touch").onclick = () => {
+  act("wave", 3200, "A tiny wave, just for you. 👋", "Saying hello");
+};
+
+/* ---------- Original pixel scene and articulated monkey ---------- */
+const canvas = $("#scene");
+const ctx = canvas.getContext("2d");
+let pointerX = 0;
+let pointerY = 0;
+$(".scene-wrap").addEventListener("pointermove", event => {
+  if (event.pointerType === "touch") return;
+  const box = canvas.getBoundingClientRect();
+  pointerX = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
+  pointerY = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
+});
+$(".scene-wrap").addEventListener("pointerleave", () => {
+  pointerX = 0; pointerY = 0;
+});
+
+function rect(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round(x), Math.round(y), w, h);
+}
+function blockOval(x, y, w, h, color) {
+  for (let row = 0; row < h; row++) {
+    const normalized = (row + .5 - h / 2) / (h / 2);
+    const width = Math.sqrt(Math.max(0, 1 - normalized * normalized)) * w;
+    rect(x + (w - width) / 2, y + row, Math.max(1, Math.round(width)), 1, color);
+  }
+}
+function line(x1, y1, x2, y2, width, color) {
+  const steps = Math.max(Math.abs(x2-x1), Math.abs(y2-y1), 1);
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    rect(x1 + (x2-x1)*t - width/2, y1 + (y2-y1)*t - width/2, width, width, color);
+  }
+}
+function path(points, width, color) {
+  for (let i = 1; i < points.length; i++) {
+    line(...points[i-1], ...points[i], width, color);
+  }
+}
+function flower(x, y, color) {
+  rect(x, y, 1, 7, "#6d8c50");
+  rect(x-2, y-3, 5, 5, color);
+  rect(x-3, y-2, 7, 3, color);
+  rect(x-1, y-1, 3, 2, "#dcb658");
+}
+function cloud(x, y, color) {
+  rect(x, y+5, 29, 6, color);
+  rect(x+5, y, 12, 11, color);
+  rect(x+15, y+3, 9, 8, color);
+}
+function banana(x, y) {
+  path([[x,y],[x+1,y+6],[x+5,y+10],[x+10,y+11],[x+15,y+7]], 5, "#9d6b2c");
+  path([[x,y],[x+2,y+6],[x+7,y+8],[x+12,y+7],[x+15,y+4]], 4, "#f3cf5c");
+  rect(x-1,y-2,3,3,"#795431");
+}
+
+function drawScene(now) {
+  if (!ctx) return;
+  const quiet = lessMotion();
+  const t = quiet ? 0 : now / 1000;
+  const night = state.night;
+  let action = now < state.actionUntil ? state.action : "idle";
+  if (action === "idle") state.action = "idle";
+  const elapsed = (now - state.actionStart) / 1000;
+  const asleep = action === "sleep";
+
+  ctx.clearRect(0,0,240,184);
+  rect(0,0,240,184,night ? "#283e4a" : state.rain ? "#cbdad4" : "#e2ecd5");
+
+  if (night) {
+    blockOval(191,20,23,23,"#f5e6b8");
+    blockOval(184,15,24,23,"#283e4a");
+    for (let i=0;i<22;i++) {
+      const x=(i*47+17)%236, y=(i*29+9)%83;
+      rect(x,y,1+(i%3===0?1:0),1,"#d0ddcc");
+    }
+  } else {
+    blockOval(189,22,25,25,state.rain?"#e6dcac":"#f6d880");
+    cloud(19 + Math.sin(t*.12)*3,35,"#f6faef");
+    cloud(169 - Math.sin(t*.10)*4,64,"#f1f7e9");
+  }
+
+  blockOval(-50,85,220,120,night?"#365047":"#c3d6b0");
+  blockOval(125,71,180,139,night?"#3a5649":"#b3cba0");
+  blockOval(40,113,230,89,night?"#436047":"#a7c28f");
+  rect(0,147,240,37,night?"#465d40":"#a0b981");
+  rect(0,146,240,3,night?"#5e7650":"#8eaa70");
+
+  // Framing trees.
+  rect(0,39,10,108,night?"#574b37":"#967552");
+  rect(6,36,5,109,night?"#64543d":"#aa8559");
+  blockOval(-28,5,75,59,night?"#314e3e":"#88a86e");
+  blockOval(-9,-14,72,59,night?"#395540":"#9fba7f");
+  blockOval(204,0,67,70,night?"#304c3c":"#8dab70");
+  blockOval(223,43,54,64,night?"#3c5840":"#9cb77b");
+  rect(234,77,6,70,night?"#574b37":"#997754");
+
+  // Small garden details.
+  for(let i=0;i<15;i++){
+    const x=(i*43+9)%240, y=153+(i*7)%24;
+    rect(x,y,2,2,night?"#627c4e":"#bdd095");
+  }
+  flower(26,145,night?"#c8bda1":"#fff0aa");
+  flower(38,155,night?"#bcaaa8":"#e9b5a5");
+  flower(205,150,night?"#bfc5ad":"#fffbe4");
+  flower(219,164,night?"#b7b9a0":"#f2dc93");
+
+  blockOval(77,156,93,10,night?"#2b433733":"#506f3933");
+
+  // BOB's pose.
+  const dancing = action === "dance";
+  const jump = quiet ? 0 : dancing ? -Math.abs(Math.sin(t*7))*5 : Math.sin(t*2)*1;
+  const sway = quiet ? 0 : dancing ? Math.sin(t*7)*3 : 0;
+  ctx.save();
+  ctx.translate(Math.round(119+sway),Math.round(107+jump));
+
+  const fur="#986237", dark="#573b29", light="#b47b47";
+  const skin="#e7b981", skinShade="#d29b67";
+  const tailWave = quiet ? 0 : Math.sin(t*2)*2;
+  const tail = [[17,39],[32,43],[45,40],[53,32],[56,21],
+    [53+tailWave,13],[47+tailWave,11],[43+tailWave,15],[45+tailWave,21]];
+  path(tail,9,dark); path(tail,5,fur);
+
+  // Feet and legs.
+  blockOval(-21,40,18,14,dark); blockOval(5,40,18,14,dark);
+  blockOval(-25,47,23,11,dark); blockOval(4,47,23,11,dark);
+  blockOval(-23,48,19,7,skin); blockOval(6,48,19,7,skin);
+  rect(-18,51,1,3,skinShade); rect(-12,51,1,3,skinShade);
+  rect(11,51,1,3,skinShade); rect(17,51,1,3,skinShade);
+
+  // Torso and green shirt.
+  blockOval(-23,9,46,40,dark);
+  blockOval(-20,10,40,38,"#617d4c");
+  rect(-14,13,28,31,"#708b55");
+  rect(-14,42,28,4,"#536b40");
+  rect(-3,19,6,7,"#e9c66c"); rect(-1,18,2,9,"#f5db8c");
+  rect(-15,13,30,3,"#879e68");
+
+  // Arms: independent waving, dancing, eating poses.
+  let leftHand=[-30,36], rightHand=[30,36];
+  if(action==="wave") rightHand=[35,quiet?-11:-10+Math.sin(t*10)*4];
+  if(dancing){
+    leftHand=[-34,quiet?3:8+Math.sin(t*7)*10];
+    rightHand=[34,quiet?3:8-Math.sin(t*7)*10];
+  }
+  if(action==="eat") rightHand=[23,quiet?6:8+Math.sin(elapsed*5)*3];
+
+  [[[-20,16],leftHand],[[20,16],rightHand]].forEach(([shoulder,hand])=>{
+    line(...shoulder,...hand,12,dark);
+    line(...shoulder,...hand,8,fur);
+    blockOval(hand[0]-6,hand[1]-5,12,11,dark);
+    blockOval(hand[0]-4,hand[1]-4,8,8,skin);
+  });
+
+  // Ears, head outline, and fur.
+  blockOval(-37,-25,18,24,dark); blockOval(20,-25,18,24,dark);
+  blockOval(-34,-22,13,18,fur); blockOval(22,-22,13,18,fur);
+  blockOval(-32,-19,9,12,skinShade); blockOval(24,-19,9,12,skinShade);
+  blockOval(-29,-43,59,60,dark);
+  blockOval(-26,-41,53,54,fur);
+  rect(-14,-44,23,5,dark);
+  rect(-11,-43,18,5,fur);
+  rect(-3,-47,9,6,dark); rect(-1,-46,5,6,light);
+  rect(-18,-34,8,3,light);
+  rect(15,-31,6,3,light);
+
+  // Heart-shaped light face.
+  blockOval(-23,-29,28,31,skin);
+  blockOval(-3,-29,28,31,skin);
+  blockOval(-22,-13,45,29,skin);
+  blockOval(-17,7,34,8,skinShade);
+  blockOval(-16,5,32,8,skin);
+
+  const blink = asleep || (!quiet && now%4700<140);
+  const ex = quiet ? 0 : Math.round(pointerX*2);
+  const ey = quiet ? 0 : Math.round(pointerY);
+  if(blink){
+    line(-16,-10,-8,-9,2,dark);
+    line(8,-9,16,-10,2,dark);
+  }else{
+    rect(-16,-18,9,13,"#fff5dc");
+    rect(8,-18,9,13,"#fff5dc");
+    rect(-13+ex,-16+ey,5,9,"#30362c");
+    rect(10+ex,-16+ey,5,9,"#30362c");
+    rect(-12+ex,-16+ey,2,3,"#fffef2");
+    rect(11+ex,-16+ey,2,3,"#fffef2");
+    rect(-17,-23,10,2,dark);
+    rect(8,-23,10,2,dark);
+  }
+  blockOval(-21,-4,8,4,"#dd9a79");
+  blockOval(14,-4,8,4,"#dd9a79");
+  blockOval(-4,-6,9,6,"#ad744b");
+  rect(-2,-5,2,2,"#795136"); rect(3,-5,2,2,"#795136");
+
+  if(asleep){
+    blockOval(-2,4,5,5,dark);
+  }else if((action==="eat" || speaking) && !quiet && Math.floor(t*6)%2){
+    blockOval(-6,3,13,8,dark);
+    rect(-3,8,7,2,"#c77f69");
+  }else{
+    path([[-8,3],[-5,7],[4,8],[9,3]],2,dark);
+  }
+
+  // Optional accessories.
+  if(state.outfit===1){
+    rect(-23,-42,47,5,"#785432");
+    rect(-19,-45,39,6,"#e4c47a");
+    rect(-13,-57,28,14,"#d9b76b");
+    rect(-11,-56,24,3,"#f0d892");
+    rect(-13,-47,28,4,"#6c8851");
+  }else if(state.outfit===2){
+    rect(-17,12,34,5,"#b9674e");
+    rect(8,16,8,17,"#c97858");
+    rect(8,29,8,3,"#e4a473");
+  }else if(state.outfit===3){
+    path([[-21,-35],[-11,-39],[0,-40],[11,-39],[21,-34]],3,"#718d4d");
+    for(const x of [-16,-5,7,18]){
+      blockOval(x-3,-42+Math.abs(x)*.18,7,6,"#fff0b9");
+      rect(x-1,-40+Math.abs(x)*.18,2,2,"#d7a94d");
+    }
+  }
+
+  if(action==="eat"){
+    banana(rightHand[0]-9,rightHand[1]-10);
+    if(!quiet){
+      rect(10,15+(elapsed*13)%16,2,2,"#f5d277");
+    }
+  }
+  if(asleep){
+    ctx.fillStyle=night?"#f2e7b9":"#54714a";
+    ctx.font="bold 10px monospace";
+    ctx.fillText("z",35,-31);
+    ctx.font="bold 7px monospace";
+    ctx.fillText("z",43,-41-(quiet?0:Math.sin(t)*2));
+  }
+  if(dancing){
+    ctx.fillStyle="#8b7043";ctx.font="12px serif";
+    ctx.fillText("♪",-47,-25);
+    ctx.fillText("♫",38,-37);
+  }
+  ctx.restore();
+
+  // Foreground weather, kept away from the face.
+  if(state.rain){
+    for(let i=0;i<32;i++){
+      const x=(i*67+13)%240;
+      const y=(i*31+(quiet?0:t*48))%184;
+      if(x>72 && x<171 && y>54 && y<166) continue;
+      line(x,y,x-1,y+4,1,night?"#729796":"#a4bfba");
+    }
+  }else if(night){
+    for(let i=0;i<7;i++){
+      const x=20+i*33+Math.sin(t*.6+i)*4;
+      const y=112+(i*13)%50+Math.cos(t*.8+i)*3;
+      rect(x,y,2,2,"#dbdfa0");
+    }
+  }
+}
+let lastFrame=0;
+function frame(now){
+  if(!document.hidden && now-lastFrame > 65){
+    drawScene(now); lastFrame=now;
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- Speech: opt-in, device-provided voices ---------- */
+const synth = window.speechSynthesis;
+let voices=[];
+let speaking=false;
+let speechSession=0;
+
+function stopSpeech(){
+  speechSession++;
+  if(synth) synth.cancel();
+  speaking=false;
+}
+function speak(text){
+  if(!synth || !window.SpeechSynthesisUtterance) return;
+  stopSpeech();
+  const session=speechSession;
+  const utterance=new SpeechSynthesisUtterance(text);
+  const voice=voices.find(v=>v.voiceURI===$("#voice-select").value);
+  if(voice) utterance.voice=voice;
+  utterance.lang=voice?.lang || "en-US";
+  utterance.rate=.94;
+  utterance.pitch=1.04;
+  utterance.onstart=()=>{if(session===speechSession) speaking=true;};
+  utterance.onend=()=>{if(session===speechSession) speaking=false;};
+  utterance.onerror=event=>{
+    if(session!==speechSession) return;
+    speaking=false;
+    if(!["canceled","interrupted"].includes(event.error)){
+      $("#chat-status").textContent="Voice unavailable. Try another voice.";
+    }
+  };
+  synth.speak(utterance);
+}
+function loadVoices(){
+  if(!synth) return;
+  const selected=$("#voice-select").value;
+  voices=synth.getVoices();
+  $("#voice-select").replaceChildren(new Option("Device default voice",""));
+  voices.forEach(voice=>{
+    $("#voice-select").add(new Option(voice.name+" ("+voice.lang+")",voice.voiceURI));
+  });
+  if(selected && voices.some(v=>v.voiceURI===selected)){
+    $("#voice-select").value=selected;
+  }else{
+    const preferred=voices.find(v=>/^en/i.test(v.lang) &&
+      /samantha|aria|jenny|natural|google/i.test(v.name));
+    if(preferred) $("#voice-select").value=preferred.voiceURI;
+  }
+}
+if(synth && window.SpeechSynthesisUtterance){
+  loadVoices();
+  synth.addEventListener("voiceschanged",loadVoices);
+}else{
+  $("#read-aloud").disabled=true;
+  $("#voice-select").disabled=true;
+  $("#preview-voice").disabled=true;
+  $("#preview-voice").textContent="Voice unavailable";
+}
+$("#preview-voice").onclick=()=>speak(
+  "Hey, I'm Bob. A little curiosity, a little kindness, and perhaps a banana."
+);
+$("#stop-voice").onclick=stopSpeech;
+$("#read-aloud").onchange=()=>{
+  if(!$("#read-aloud").checked) stopSpeech();
+  else speak("Read aloud is on. I'll read new replies when your browser allows it.");
+};
+window.addEventListener("pagehide",stopSpeech);
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden) stopSpeech();
+});
+
+/* ---------- Companion interface ---------- */
+let busy=false;
+const suggestions={
+  support:["A calming pause","Help me ground myself","One small step"],
+  teacher:["Teach me fractions","Explain photosynthesis","Surprise lesson"],
+  encyclopedia:["Octopuses","Black holes","Ada Lovelace"]
+};
+const modeNotes={
+  support:"Preset exercises, not personalized counseling.",
+  teacher:"Built-in mini lessons; other topics search Wikipedia.",
+  encyclopedia:"Online Wikipedia excerpts, not AI-generated answers."
+};
+function addMessage(role,text,source="",url=""){
+  const article=document.createElement("article");
+  article.className="message "+role;
+  const label=document.createElement("div");
+  label.className="label";
+  label.textContent=role==="user"?"YOU":"BOB · YOUR PIXEL PAL";
+  const body=document.createElement("div");
+  body.className="text";body.textContent=text;
+  article.append(label,body);
+
+  if(source){
+    const meta=document.createElement("div");
+    meta.className="meta";meta.textContent=source;
+    if(url){
+      try{
+        const address=new URL(url);
+        if(address.protocol==="https:" && address.hostname==="en.wikipedia.org"){
+          const link=document.createElement("a");
+          link.href=address.href;link.target="_blank";
+          link.rel="noopener noreferrer";link.textContent=" · Read article ↗";
           meta.append(link);
         }
-      } catch {}
+      }catch{}
     }
     article.append(meta);
   }
+  if(role==="assistant" && synth){
+    const replay=document.createElement("button");
+    replay.className="replay";
+    replay.textContent="▷ Read this reply";
+    replay.onclick=()=>speak(text);
+    article.append(replay);
+  }
 
-  log.append(article);
-  while (log.children.length > 70) log.firstElementChild.remove();
-  log.scrollTop = log.scrollHeight;
+  $("#messages").append(article);
+  while($("#messages").children.length>60){
+    $("#messages").firstElementChild.remove();
+  }
+  $("#messages").scrollTop=$("#messages").scrollHeight;
 }
-
-function reply(text, source = "", url = "") {
-  lastReply = text;
-  addMessage("assistant", text, source, url);
-  if ($("#read-aloud").checked) speak(text);
+function reply(text,source="",url=""){
+  addMessage("assistant",text,source,url);
+  if($("#read-aloud").checked) speak(text);
 }
-
-function welcome() {
-  reply(
-    "Hey, I'm BOB. 🍌\nA tiny monkey for little pauses and big curiosities.\n\nChoose Support for a preset calming exercise, Teacher for a mini lesson, or Encyclopedia to look up a topic.\n\nThis edition isn't conversational AI, but there's still plenty to explore!",
-    "Browser edition · no account or API key needed"
+function welcome(){
+  addMessage("assistant",
+    "Hey, I'm BOB. 🍌\nWelcome to our little garden.\n\nWe can take a gentle pause, explore a mini lesson, or look up a random topic. You can also feed me, change my outfit, or try a game below.\n\nA quick heads-up: I use preset activities and Wikipedia—not conversational AI.",
+    "Browser companion · no API key needed"
   );
 }
-
-function renderPrompts() {
+function renderSuggestions(){
   $("#suggestions").replaceChildren();
-  for (const text of prompts[mode]) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = text;
-    button.disabled = busy;
-    button.onclick = () => {
-      input.value = text;
-      $("#form").requestSubmit();
+  suggestions[state.mode].forEach(text=>{
+    const button=document.createElement("button");
+    button.textContent=text;button.disabled=busy;
+    button.onclick=()=>{
+      $("#question").value=text;
+      $("#chat-form").requestSubmit();
     };
     $("#suggestions").append(button);
-  }
+  });
 }
-
-function setBusy(value) {
-  busy = value;
-  $("#send").disabled = value;
-  $("#clear").disabled = value;
-  document.querySelectorAll("[data-mode]").forEach(b => b.disabled = value);
-  $("#status").textContent = value ? "Looking it up…" : "";
-  renderPrompts();
+function setBusy(value){
+  busy=value;
+  $("#send").disabled=value;$("#clear-chat").disabled=value;
+  all("[data-mode]").forEach(button=>button.disabled=value);
+  $("#chat-status").textContent=value?"One moment…":"";
+  renderSuggestions();
 }
-
-document.querySelectorAll("[data-mode]").forEach(button => {
-  button.onclick = () => {
-    if (busy) return;
+all("[data-mode]").forEach(button=>{
+  button.onclick=()=>{
+    if(busy) return;
     stopSpeech();
-    mode = button.dataset.mode;
-    document.querySelectorAll("[data-mode]").forEach(b =>
-      b.setAttribute("aria-pressed", String(b === button))
-    );
-    input.placeholder = mode === "support"
-      ? "Try “calming pause” or “one small step”…"
-      : "Type a topic you want to explore…";
-    renderPrompts();
+    state.mode=button.dataset.mode;
+    all("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
+    $("#mode-note").textContent=modeNotes[state.mode];
+    $("#question").placeholder=state.mode==="support"?
+      "Try a calming pause or choose an activity…":"Enter a topic you're curious about…";
+    renderSuggestions();
   };
 });
 
-function support(text) {
-  const t = text.toLowerCase();
-  let exercise = exercises.calm;
-  if (/ground|panic|overwhelm/.test(t)) exercise = exercises.ground;
-  else if (/step|task|motivat|stuck/.test(t)) exercise = exercises.step;
-  else if (/lonely|alone|friend|connect/.test(t)) exercise = exercises.connect;
-
-  return "This is a preset exercise, not a personalized assessment.\n\n" + exercise;
+const supportExercises={
+  calm:"A little pause, if you'd like:\n\n1. Find a comfortable position.\n2. Let your shoulders soften, if that feels okay.\n3. Take three easy breaths at your natural pace. No holding or forcing.\n4. Notice something neutral or pleasant nearby.\n\nYou can stop at any point. There's no perfect way to do this.",
+  ground:"Try noticing the room around you:\n\n• Five things you can see.\n• Four things you can physically feel.\n• Three sounds you can hear.\n• Two smells—or two smells you like.\n• One small kindness you can offer yourself.\n\nAdapt or skip any step. You can also simply name a few colors around you.",
+  step:"Let's make the next step very small.\n\nChoose just one:\n• Drink some water.\n• Put one item away.\n• Write down the next task, not the entire list.\n• Stretch gently if comfortable.\n• Take a rest.\n\nA small action doesn't have to fix everything to be worthwhile.",
+  connect:"If it would help, consider a real-world check-in.\n\nYou could send someone you trust:\n“Today's been a bit rough. Do you have a few minutes to talk?”\n\nYou don't have to explain everything at once. If difficult feelings persist or affect daily life, a qualified professional can offer support.",
+  sleep:"A gentle wind-down option:\n\n• Put aside one non-urgent task.\n• Dim the lights if possible.\n• Write a quick note for anything you want to remember tomorrow.\n• Choose a quiet, comfortable activity.\n\nNo pressure to fall asleep on command. If sleep problems persist, consider speaking with a healthcare professional."
+};
+function supportReply(text){
+  const t=text.toLowerCase();
+  let key="calm";
+  if(/ground|panic|overwhelm/.test(t)) key="ground";
+  else if(/step|stuck|motivat|task/.test(t)) key="step";
+  else if(/lonely|alone|friend|connect|sad/.test(t)) key="connect";
+  else if(/sleep|bed|tired/.test(t)) key="sleep";
+  reply(
+    "Here's a preset exercise—not a personalized assessment.\n\n"+supportExercises[key],
+    "Preset support · not professional care"
+  );
 }
 
-function findLesson(text) {
-  const t = text.toLowerCase();
-  if (/surprise|random lesson|something new/.test(t)) {
-    const lesson = lessons[lessonIndex % lessons.length];
-    lessonIndex++;
-    return lesson;
+const lessons=[
+  {
+    title:"Fractions, one banana at a time",
+    match:/fraction/i,
+    text:"A fraction counts equal parts of a whole.\n\nIn 3/4:\n• The denominator, 4, tells us the whole has four equal parts.\n• The numerator, 3, tells us we're counting three of them.\n\nCut a banana into four equal pieces. Eat three, and you've eaten 3/4. 🍌\n\nPractice: what is 1/4 + 2/4?\nAnswer: 3/4. When denominators match, add the numerators."
+  },
+  {
+    title:"Photosynthesis: a leaf's solar kitchen",
+    match:/photosynth/i,
+    text:"Plants, algae, and some bacteria use light energy to build chemical energy through photosynthesis.\n\nIn plants, the process uses water and carbon dioxide to help make sugars, releasing oxygen. Chlorophyll helps absorb the light.\n\nThink of a leaf as a tiny solar-powered food factory.\n\nQuick question: where does most of a growing tree's carbon come from?\nAnswer: carbon dioxide in the air—not the soil."
+  },
+  {
+    title:"Gravity and the art of falling",
+    match:/gravity|gravitation/i,
+    text:"Gravity is the attraction associated with mass and energy.\n\nIt helps keep our feet on Earth and the Moon in orbit around us. An orbit is like continually falling while moving sideways fast enough to keep missing the ground.\n\nThe Moon has gravity too: at its surface, about one-sixth of Earth's.\n\nQuick question: does gravity disappear in orbit?\nAnswer: no. Astronauts float because they and their spacecraft are in continuous free fall."
+  },
+  {
+    title:"Why the sky looks blue",
+    match:/sky.*blue|blue.*sky/i,
+    text:"Sunlight contains many colors. Molecules in our atmosphere scatter shorter wavelengths more strongly than longer ones.\n\nScattered blue light reaches your eyes from many directions. Our eyes' sensitivity and sunlight's spectrum help explain why the sky looks blue rather than violet.\n\nAt sunset, sunlight travels through more atmosphere. More blue light is scattered out of its direct path, often leaving warmer colors."
+  },
+  {
+    title:"A tiny introduction to algorithms",
+    match:/algorithm|coding|programming/i,
+    text:"An algorithm is a sequence of steps for accomplishing a task.\n\nBOB's snack algorithm:\n1. Find a banana.\n2. Peel it.\n3. Take a bite.\n4. Repeat until finished.\n5. Dispose of the peel responsibly.\n\nComputers need instructions that are precise enough to follow. A loop repeats steps; a condition chooses what happens next.\n\nPractice: what condition should stop the biting loop?\nAnswer: no edible banana remains."
+  },
+  {
+    title:"Why octopuses are remarkable",
+    match:/octopus|octopuses/i,
+    text:"Octopuses are marine mollusks with eight arms, flexible bodies, and impressive camouflage.\n\nThey have three hearts. Two pump blood through the gills; another sends it to the rest of the body. Their blood uses a copper-containing oxygen carrier called hemocyanin.\n\nMany can solve puzzles and explore objects with their arms.\n\nQuick question: are octopuses fish?\nAnswer: no. They are cephalopod mollusks."
   }
-  if (/fraction/.test(t)) return lessons[0];
-  if (/photosynth/.test(t)) return lessons[1];
-  if (/gravity|gravitation/.test(t)) return lessons[2];
-  if (/sky.*blue|blue.*sky/.test(t)) return lessons[3];
-  return null;
+];
+let lessonCursor=0;
+function getLesson(text){
+  if(/surprise|random lesson|something new/i.test(text)){
+    return lessons[(lessonCursor++)%lessons.length];
+  }
+  return lessons.find(lesson=>lesson.match.test(text));
 }
-
-async function lookup(text) {
-  const topic = text
-    .replace(/^(hey bob[,!]?\s*)/i, "")
-    .replace(/^(what is|what are|who is|who was|tell me about|explain|define)\s+/i, "")
-    .replace(/[?!.]+$/, "")
-    .trim().slice(0, 180);
-
-  if (!topic) {
-    reply("Try a topic such as “ocean currents,” “Ada Lovelace,” or “Saturn.”");
+async function wikipedia(text){
+  const topic=text
+    .replace(/^(hey bob[,!]?\s*)/i,"")
+    .replace(/^(what is|what are|who is|who was|tell me about|explain|define)\s+/i,"")
+    .replace(/[?!.]+$/,"").trim().slice(0,180);
+  if(!topic){
+    reply("Try a specific topic, such as “Saturn,” “ocean currents,” or “Ada Lovelace.”");
     return;
   }
-
-  const url = new URL("https://en.wikipedia.org/w/api.php");
-  url.search = new URLSearchParams({
-    action: "query",
-    generator: "search",
-    gsrsearch: topic,
-    gsrlimit: "1",
-    prop: "extracts|info",
-    exintro: "1",
-    explaintext: "1",
-    exchars: "1800",
-    inprop: "url",
-    format: "json",
-    origin: "*"
+  const url=new URL("https://en.wikipedia.org/w/api.php");
+  url.search=new URLSearchParams({
+    action:"query",generator:"search",gsrsearch:topic,gsrlimit:"1",
+    prop:"extracts|info",exintro:"1",explaintext:"1",exchars:"1800",
+    inprop:"url",format:"json",origin:"*"
   });
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 14000);
-  try {
-    const response = await fetch(url, {
-      signal: controller.signal,
-      credentials: "omit",
-      referrerPolicy: "no-referrer"
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),14000);
+  try{
+    const response=await fetch(url,{
+      signal:controller.signal,credentials:"omit",referrerPolicy:"no-referrer"
     });
-    if (!response.ok) throw new Error("Lookup unavailable");
-    const data = await response.json();
-    if (data.error) throw new Error("Lookup unavailable");
-
-    const page = Object.values(data.query?.pages || {})[0];
-    if (!page?.extract) {
+    if(!response.ok) throw new Error("Wikipedia unavailable");
+    const data=await response.json();
+    if(data.error) throw new Error("Wikipedia unavailable");
+    const page=Object.values(data.query?.pages || {})[0];
+    if(!page?.extract){
       reply(
-        "I couldn't find a useful article excerpt for that topic. Try a shorter, more specific subject.\n\nI search Wikipedia in this edition—I can't reason through every question.",
+        "I couldn't find a useful article excerpt for that topic. Try a shorter, more specific subject.\n\nThis edition searches Wikipedia; it can't reason through arbitrary questions.",
         "Wikipedia lookup · no useful match"
       );
       return;
     }
     reply(
-      page.title + "\n\n" + page.extract +
-      "\n\nThis is a search-matched article excerpt, not a verified answer to every part of your question.",
-      "Source: English Wikipedia · CC BY-SA",
-      page.fullurl || "https://en.wikipedia.org/?curid=" + page.pageid
+      page.title+"\n\n"+page.extract+
+      "\n\nThis is a search-matched article excerpt—not a verified answer to every part of your question.",
+      "English Wikipedia · CC BY-SA",
+      page.fullurl || "https://en.wikipedia.org/?curid="+page.pageid
     );
-  } finally {
+  }finally{
     clearTimeout(timer);
   }
 }
-
-$("#form").addEventListener("submit", async event => {
+$("#chat-form").addEventListener("submit",async event=>{
   event.preventDefault();
-  const text = input.value.trim();
-  if (!text || busy) return;
-  input.value = "";
+  const input=$("#question");
+  const text=input.value.trim();
+  if(!text || busy) return;
+  input.value="";
   stopSpeech();
-  addMessage("user", text);
+  addMessage("user",text);
   setBusy(true);
-
-  try {
-    // A limited safety cue, not a distress-detection system.
-    if (/\b(kill myself|hurt myself|end my life|suicidal)\b/i.test(text)) {
+  try{
+    // Limited phrase matching; not a reliable distress-detection system.
+    if(/\b(kill myself|hurt myself|end my life|suicidal)\b/i.test(text)){
       reply(
-        "If this describes how you're feeling, please reach out to a real person now. I can't assess your safety or provide crisis care.\n\nIf you may act on these thoughts or have already harmed yourself, call local emergency services or go to the nearest emergency department. If you can, move away from anything you could use to hurt yourself and ask someone you trust to stay with you.\n\nIn the U.S. or Canada, call or text 988. Elsewhere, contact your local crisis service.",
+        "If this describes how you're feeling, please contact a real person now. I can't assess your safety or provide crisis care.\n\nIf you may act on these thoughts or have already harmed yourself, contact local emergency services or go to the nearest emergency department. If you can, move away from anything you could use to hurt yourself and ask someone you trust to stay with you.\n\nIn the U.S. or Canada, call or text 988. Elsewhere, contact your local crisis service.",
         "Preset safety information · not a personalized assessment"
       );
-    } else if (/^(hi|hello|hey|hey bob|hello bob)[!.\s]*$/i.test(text)) {
-      reply("Hey there! 🍌 Pick a calming exercise, explore a lesson, or give me a topic to look up.", "Preset greeting");
-    } else if (mode === "support") {
-      reply(support(text), "Preset support exercise · not professional care");
-    } else if (mode === "teacher" && findLessonCandidate(text)) {
-      const lesson = findLesson(text);
-      reply(lesson.title + "\n\n" + lesson.text, "Built-in mini lesson · not generated AI");
-    } else {
-      await lookup(text);
+    }else if(/^(hi|hey|hello|hey bob|hello bob)[!.\s]*$/i.test(text)){
+      reply("Hey there! 🍌 A little pause, a little learning, or a little monkey mischief? Pick a mode or try a game.", "Preset greeting");
+      act("wave",3000,"Hello from the garden! 👋","Saying hello");
+    }else if(state.mode==="support"){
+      supportReply(text);
+    }else{
+      const lesson=state.mode==="teacher"?getLesson(text):null;
+      if(lesson) reply(lesson.title+"\n\n"+lesson.text,"Built-in mini lesson · not generated AI");
+      else await wikipedia(text);
     }
-  } catch {
+  }catch{
     reply(
-      "My Wikipedia connection didn't work. Your connection, Wikipedia, or a network restriction may be the cause.\n\nYou can still play with BOB, use Support, or try a built-in lesson about fractions, photosynthesis, or gravity.",
+      "My Wikipedia connection didn't work. The network, Wikipedia, or a browser restriction may be the cause.\n\nThe pet, games, support exercises, and built-in lessons still work. Try Teacher → “fractions,” “gravity,” or “photosynthesis.”",
       "Lookup failed · no answer retrieved"
     );
-  } finally {
+  }finally{
     setBusy(false);
     input.focus();
   }
 });
-
-function findLessonCandidate(text) {
-  return /surprise|random lesson|something new|fraction|photosynth|gravity|gravitation|sky.*blue|blue.*sky/i.test(text);
-}
-
-input.addEventListener("keydown", event => {
-  if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+$("#question").addEventListener("keydown",event=>{
+  if(event.key==="Enter" && !event.shiftKey && !event.isComposing){
     event.preventDefault();
-    $("#form").requestSubmit();
+    $("#chat-form").requestSubmit();
   }
 });
-
-$("#clear").onclick = () => {
-  if (busy || !confirm("Clear the conversation on this page?")) return;
+$("#clear-chat").onclick=()=>{
+  if(busy || !confirm("Clear this page's conversation?")) return;
   stopSpeech();
-  log.replaceChildren();
+  $("#messages").replaceChildren();
   welcome();
 };
 
-function stopSpeech() {
-  if (speech) speech.cancel();
-  talking = false;
-}
-
-function speak(text) {
-  if (!speech || !window.SpeechSynthesisUtterance) return;
-  stopSpeech();
-  const utterance = new SpeechSynthesisUtterance(text);
-  const voice = voiceList.find(v => v.voiceURI === $("#voices").value);
-  if (voice) utterance.voice = voice;
-  utterance.lang = voice?.lang || "en-US";
-  utterance.rate = 0.95;
-  utterance.pitch = 1.05;
-  utterance.onstart = () => { talking = true; };
-  utterance.onend = () => { talking = false; };
-  utterance.onerror = event => {
-    talking = false;
-    if (!["interrupted", "canceled"].includes(event.error)) {
-      $("#status").textContent = "Voice unavailable—try another voice.";
-    }
-  };
-  speech.speak(utterance);
-}
-
-function loadVoices() {
-  if (!speech) return;
-  const previous = $("#voices").value;
-  voiceList = speech.getVoices();
-  $("#voices").replaceChildren(new Option("Device default voice", ""));
-  for (const voice of voiceList) {
-    $("#voices").add(new Option(
-      voice.name + " (" + voice.lang + ")", voice.voiceURI
-    ));
+/* ---------- Memory garden ---------- */
+let memoryCards=[];
+let selectedCards=[];
+let matches=0;
+let turns=0;
+let memoryLocked=false;
+let memoryTimer;
+function shuffle(items){
+  const result=[...items];
+  for(let i=result.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [result[i],result[j]]=[result[j],result[i]];
   }
-  if (previous && voiceList.some(v => v.voiceURI === previous)) {
-    $("#voices").value = previous;
-  } else {
-    const preferred = voiceList.find(v =>
-      /^en/i.test(v.lang) && /samantha|aria|jenny|natural|google/i.test(v.name)
-    );
-    if (preferred) $("#voices").value = preferred.voiceURI;
-  }
+  return result;
 }
-
-if (speech && window.SpeechSynthesisUtterance) {
-  loadVoices();
-  speech.addEventListener("voiceschanged", loadVoices);
-} else {
-  $("#read-aloud").disabled = true;
-  $("#preview").disabled = true;
-  $("#voices").disabled = true;
-  $("#preview").textContent = "Voice not supported";
+function updateMemoryStatus(){
+  $("#memory-status").textContent=matches===6?
+    "All six pairs found! A lovely bit of exploring. 🍌":
+    `${matches} of 6 pairs · ${turns} turns · take your time`;
 }
-$("#preview").onclick = () => speak(
-  "Hey, I'm Bob. One little step at a time. Also, have you seen my banana?"
-);
-$("#stop").onclick = stopSpeech;
-$("#read-aloud").onchange = () => {
-  if ($("#read-aloud").checked && lastReply) speak(lastReply);
-  else stopSpeech();
-};
-window.addEventListener("pagehide", stopSpeech);
-
-function petReaction(text, mood, sleep = false) {
-  clearTimeout(petTimer);
-  sleepy = sleep;
-  $("#bubble").textContent = text;
-  $("#mood").textContent = mood;
-  petTimer = setTimeout(() => {
-    sleepy = false;
-    $("#bubble").textContent = "One small adventure at a time.";
-    $("#mood").textContent = "Feeling curious";
-  }, sleep ? 15000 : 7000);
-}
-
-$("#feed").onclick = () =>
-  petReaction("A-peeling. Absolutely a-peeling. 🍌", "Feeling snack-tastic");
-
-$("#play").onclick = () => {
-  const lines = [
-    "Tiny dance break? Wiggle your shoulders!",
-    "Name something yellow. I vote banana.",
-    "Why did the banana go out? It had a-peel!",
-    "A little silliness counts as a good moment."
-  ];
-  petReaction(lines[Math.floor(Math.random() * lines.length)], "Feeling playful");
-};
-
-$("#rest").onclick = () =>
-  petReaction("A little rest is allowed. zzz", "Taking a cozy pause", true);
-
-// Original hand-placed pixel monkey.
-const pixels = [
-  ".........HHHHHH.........",
-  ".......HHBBBBBBHH.......",
-  "......HBBBBBBBBBBH......",
-  ".....HBBBBBBBBBBBBH.....",
-  "..HHHHBBTTBBBBTTBBHHHH..",
-  ".HBBTHBTTTTTTTTTTBHTBBH.",
-  ".HBTTHBTTTTTTTTTTBHTTBH.",
-  ".HBBTHBTTETTTTETTBHTBBH.",
-  "..HHHHBTTETTTTETTBHHHH..",
-  ".....HBTTTTNNTTTTBH.....",
-  "......HTTTRRRTTTTH......",
-  ".......HTTTTTTTTH.......",
-  "......HHBTTTTTTBHH......",
-  ".....HBBBGGGGGGBBBH.....",
-  "....HBBBBGGYGGGBBBBH....",
-  "....HBTBBGGGGGGBBTBH....",
-  "...HBTTHBGGGGGBHTTBH....",
-  "...HTTTHBGGGGGBHTTTH.HH.",
-  "....HHHBBGGGGBBBHHH.HBBH",
-  "......HBBBBBBBBH....HBBH",
-  ".....HBBBH..HBBBH..HBBH.",
-  "....HTTTH....HTTTHHBBH..",
-  "....HHHH......HHHHHHH...",
-  "........................"
-];
-const palette = {
-  H:"#593923", B:"#966037", T:"#e5b57d",
-  E:"#252d29", N:"#875034", R:"#b56956",
-  G:"#637e50", Y:"#e9c566"
-};
-const ctx = $("#pet").getContext("2d");
-
-function drawPet() {
-  if (!ctx || document.hidden) return;
-  ctx.clearRect(0, 0, 192, 192);
-  ctx.fillStyle = "#45663822";
-  ctx.fillRect(47, 165, 104, 8);
-
-  const blink = !reducedMotion.matches && Date.now() % 4300 < 170;
-  pixels.forEach((row, y) => {
-    [...row].forEach((pixel, x) => {
-      if (pixel === ".") return;
-      const px = 24 + x * 6;
-      const py = 27 + y * 6;
-      ctx.fillStyle = palette[pixel];
-      if (pixel === "E" && (blink || sleepy)) {
-        ctx.fillStyle = palette.T;
-        ctx.fillRect(px, py, 6, 6);
-        if (y === 8) {
-          ctx.fillStyle = palette.E;
-          ctx.fillRect(px, py + 2, 6, 2);
+function startMemory(){
+  clearTimeout(memoryTimer);
+  selectedCards=[];matches=0;turns=0;memoryLocked=false;
+  const icons=["🍌","🍓","🌻","🍄","🥝","🦋"];
+  const names={"🍌":"banana","🍓":"strawberry","🌻":"sunflower","🍄":"mushroom","🥝":"kiwi","🦋":"butterfly"};
+  memoryCards=shuffle([...icons,...icons]).map(icon=>({icon,matched:false,button:null}));
+  $("#memory-grid").replaceChildren();
+  memoryCards.forEach((card,index)=>{
+    const button=document.createElement("button");
+    card.button=button;button.className="memory-card";
+    button.textContent="✿";
+    button.setAttribute("aria-label",`Card ${index+1}, face down`);
+    button.onclick=()=>{
+      if(memoryLocked || card.matched || selectedCards.includes(index)) return;
+      button.textContent=card.icon;
+      button.setAttribute("aria-label",`Card ${index+1}, ${names[card.icon]}`);
+      selectedCards.push(index);
+      if(selectedCards.length<2) return;
+      turns++;
+      const [a,b]=selectedCards.map(i=>memoryCards[i]);
+      if(a.icon===b.icon){
+        a.matched=b.matched=true;
+        a.button.classList.add("matched");
+        b.button.classList.add("matched");
+        a.button.disabled=b.button.disabled=true;
+        matches++;selectedCards=[];
+        chime([659.25,783.99]);
+        updateMemoryStatus();
+        if(matches===6){
+          act("dance",6500,"Six pairs! A bunch of good noticing. 🍌","Celebrating your game");
         }
-      } else {
-        ctx.fillRect(px, py, 6, 6);
+      }else{
+        memoryLocked=true;
+        updateMemoryStatus();
+        memoryTimer=setTimeout(()=>{
+          selectedCards.forEach(i=>{
+            memoryCards[i].button.textContent="✿";
+            memoryCards[i].button.setAttribute("aria-label",`Card ${i+1}, face down`);
+          });
+          selectedCards=[];memoryLocked=false;
+        },1000);
       }
-    });
+    };
+    $("#memory-grid").append(button);
   });
-  if (talking && !sleepy && !reducedMotion.matches &&
-      Math.floor(Date.now() / 180) % 2) {
-    ctx.fillStyle = palette.H;
-    ctx.fillRect(90, 88, 18, 7);
+  updateMemoryStatus();
+}
+$("#open-memory").onclick=()=>{
+  startMemory();openDialog("#memory-dialog");
+};
+$("#restart-memory").onclick=startMemory;
+$("#memory-dialog").addEventListener("close",()=>{
+  clearTimeout(memoryTimer);
+});
+
+/* ---------- A gentle minute, based on elapsed time ---------- */
+let breathTimer;
+let breathStart=0;
+let breathPhase=-1;
+const breathPrompts=[
+  "Feel the support of the chair or floor, if comfortable.",
+  "Let your breathing find its own easy rhythm.",
+  "Notice a color or shape somewhere around you.",
+  "Soften your jaw or shoulders, if that feels okay.",
+  "Name one small kindness you could offer yourself.",
+  "Nothing to solve right now. Just this moment."
+];
+function finishBreath(completed=false){
+  clearInterval(breathTimer);
+  $("#breath-circle").classList.remove("active");
+  $("#start-breath").hidden=false;
+  $("#end-breath").hidden=true;
+  $("#breath-status").textContent=completed?
+    "That's your minute. Take whatever pace feels right from here.":
+    "Pause finished. You can return whenever you like.";
+  if(completed){
+    petSay("A little space can be enough. 🌿","Feeling peaceful");
+    chime([392,523.25]);
   }
 }
+$("#open-breath").onclick=()=>openDialog("#breath-dialog");
+$("#start-breath").onclick=()=>{
+  stopSpeech();
+  clearInterval(breathTimer);
+  breathStart=Date.now();breathPhase=-1;
+  $("#start-breath").hidden=true;
+  $("#end-breath").hidden=false;
+  $("#breath-circle").classList.add("active");
+  function tick(){
+    const seconds=(Date.now()-breathStart)/1000;
+    if(seconds>=60){finishBreath(true);return;}
+    const phase=Math.min(5,Math.floor(seconds/10));
+    if(phase!==breathPhase){
+      breathPhase=phase;
+      $("#breath-status").textContent=breathPrompts[phase];
+    }
+  }
+  tick();
+  breathTimer=setInterval(tick,250);
+};
+$("#end-breath").onclick=()=>finishBreath(false);
+$("#breath-dialog").addEventListener("close",()=>finishBreath(false));
 
-drawPet();
-setInterval(drawPet, 100);
+/* ---------- Curiosity quiz ---------- */
+const quizBank=[
+  {q:"Where does most of a tree's carbon come from?",
+    a:["Carbon dioxide in the air","Minerals in the soil","Sunlight itself"],correct:0,
+    why:"Plants use carbon dioxide from the air to build sugars and other carbon-containing material."},
+  {q:"How many hearts does an octopus have?",
+    a:["One","Two","Three"],correct:2,
+    why:"Two hearts pump blood through the gills; another supplies the rest of the body."},
+  {q:"What is 1/4 + 2/4?",
+    a:["3/8","3/4","2/4"],correct:1,
+    why:"With equal denominators, add the numerators: 1 + 2 = 3. The denominator stays 4."},
+  {q:"Why do astronauts float in orbit?",
+    a:["There is no gravity","They are in continuous free fall","Space pushes them upward"],correct:1,
+    why:"Gravity is still present. Astronauts and their spacecraft fall together while orbiting Earth."},
+  {q:"Which planet is famous for its prominent rings?",
+    a:["Mars","Mercury","Saturn"],correct:2,
+    why:"Saturn has an extensive, bright ring system made largely of icy particles."},
+  {q:"In programming, what does a loop do?",
+    a:["Repeats instructions","Deletes all instructions","Always stops the program"],correct:0,
+    why:"A loop repeats a set of instructions according to its rules or conditions."},
+  {q:"Are octopuses fish?",
+    a:["Yes","No, they are mollusks","No, they are mammals"],correct:1,
+    why:"Octopuses are cephalopod mollusks, related to squid and cuttlefish."},
+  {q:"What does chlorophyll help plants absorb?",
+    a:["Sound","Light","Gravity"],correct:1,
+    why:"Chlorophyll absorbs light energy that supports photosynthesis."}
+];
+let quiz=[];
+let quizIndex=0;
+let quizScore=0;
+let quizAnswered=false;
+function startQuiz(){
+  quiz=shuffle(quizBank).slice(0,5);
+  quizIndex=0;quizScore=0;
+  renderQuiz();
+}
+function renderQuiz(){
+  quizAnswered=false;
+  $("#quiz-options").replaceChildren();
+  $("#quiz-feedback").textContent="";
+  $("#quiz-next").hidden=true;
+  if(quizIndex>=quiz.length){
+    $("#quiz-progress").textContent="A LITTLE MORE CURIOUS";
+    $("#quiz-question").textContent=`You got ${quizScore} of ${quiz.length} right.`;
+    $("#quiz-feedback").textContent="Every explanation is something learned. Want another little round?";
+    $("#quiz-next").textContent="Play again";
+    $("#quiz-next").hidden=false;
+    act("wave",4500,"Curiosity looks good on you. ✨","Feeling inspired");
+    return;
+  }
+  const question=quiz[quizIndex];
+  $("#quiz-progress").textContent=`QUESTION ${quizIndex+1} OF ${quiz.length}`;
+  $("#quiz-question").textContent=question.q;
+  question.a.forEach((answer,index)=>{
+    const button=document.createElement("button");
+    button.textContent=answer;
+    button.onclick=()=>{
+      if(quizAnswered) return;
+      quizAnswered=true;
+      const correct=index===question.correct;
+      if(correct){quizScore++;chime();}
+      all("#quiz-options button").forEach(b=>b.disabled=true);
+      $("#quiz-feedback").textContent=(correct?"That's right! ":"A useful one to learn! ")+question.why;
+      $("#quiz-next").textContent=quizIndex===quiz.length-1?"See your finish":"Next question";
+      $("#quiz-next").hidden=false;
+      $("#quiz-next").focus();
+    };
+    $("#quiz-options").append(button);
+  });
+}
+$("#open-quiz").onclick=()=>{
+  startQuiz();openDialog("#quiz-dialog");
+};
+$("#quiz-next").onclick=()=>{
+  if(quizIndex>=quiz.length){startQuiz();return;}
+  quizIndex++;
+  renderQuiz();
+};
+
+/* ---------- Start ---------- */
 welcome();
-renderPrompts();
+renderSuggestions();
+requestAnimationFrame(frame);
 </script>
 </body>
 </html>
