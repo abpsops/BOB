@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f3e9">
+<meta name="referrer" content="no-referrer">
+<title>BOB — Your little pixel pal</title>
+<style>
+:root{
+  --bg:#f6f3e9;--card:#fffef9;--ink:#293d32;
+  --muted:#697665;--green:#365e45;--line:#e0e5d6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;color:inherit}
+button:disabled{cursor:wait;opacity:.55}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,
+textarea:focus-visible{outline:3px solid #b58335;outline-offset:3px}
+button{transition:background .15s,transform .15s}
+header,main{max-width:1160px;margin:auto}
+header{display:flex;align-items:center;gap:22px;padding:23px 28px;
+  border-bottom:1px solid var(--line)}
+.logo{font-weight:900;font-size:39px;letter-spacing:-4px}
+.logo span{color:#bc884d}
+.tagline{color:var(--muted);font-size:12px}
+.badge{margin-left:auto;background:#edf1e3;padding:8px 12px;
+  border:1px solid #dbe2cd;border-radius:30px;font-size:10px}
+main{padding:0 28px}
+.intro{display:flex;justify-content:space-between;align-items:end;gap:22px;
+  padding:34px 0 27px}
+.eyebrow{font-size:9px;letter-spacing:2px;font-weight:750;color:#74816b}
+h1{font-family:Georgia,serif;font-size:58px;font-weight:400;
+  letter-spacing:-2px;line-height:1.05;margin:14px 0 0}
+.intro p{color:var(--muted);font-size:14px;line-height:1.9;margin-bottom:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{border:1px solid var(--line);background:var(--card);
+  border-radius:21px;overflow:hidden;box-shadow:0 8px 30px #263d2905}
+.heading{padding:23px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+h2{font-size:23px;letter-spacing:-.7px;margin:6px 0 0}
+.subtitle{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0}
+.level{font-size:8px;letter-spacing:1px;white-space:nowrap;
+  background:#faf4df;border:1px solid #e5dec3;border-radius:7px;padding:8px}
+.garden{height:310px;position:relative;overflow:hidden;background:#e5eedb;
+  border-radius:13px;margin:0 14px;isolation:isolate}
+.sun{position:absolute;right:43px;top:38px;width:46px;height:46px;
+  border-radius:50%;background:#f6d683;box-shadow:0 0 0 10px #f6d68325}
+.cloud{position:absolute;left:30px;top:70px;width:76px;height:19px;
+  border-radius:30px;background:#f9fff1}
+.cloud:before{content:"";position:absolute;width:34px;height:30px;
+  left:16px;top:-14px;border-radius:50%;background:inherit}
+.cloud.two{left:auto;right:22px;top:117px;transform:scale(.65)}
+.hill{position:absolute;bottom:22px;left:-100px;width:390px;height:160px;
+  background:#c5d7b3;border-radius:50%;z-index:-1}
+.hill.two{left:auto;right:-180px;background:#b4cba1;height:198px}
+.ground{position:absolute;bottom:0;height:53px;width:100%;
+  background:#a5bd90;border-top:7px solid #91ae7e;z-index:-1}
+#pet{position:absolute;width:240px;height:240px;left:50%;bottom:19px;
+  transform:translateX(-50%);image-rendering:pixelated;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-6px)}}
+#bubble{position:absolute;z-index:2;top:21px;left:50%;transform:translateX(-50%);
+  background:#fffef3;border:1px solid #d4dfc7;border-radius:14px;
+  padding:11px 15px;font-size:11px;text-align:center;width:max-content;max-width:94%}
+.flower{position:absolute;bottom:38px;left:33px;color:#ffefab;font-size:23px}
+.flower.two{left:auto;right:42px;font-size:18px;color:#fffbea}
+.garden-label{position:absolute;bottom:13px;left:16px;font-size:8px;
+  letter-spacing:2px;color:#3b5634}
+.pet-bottom{padding:20px 23px}
+.mood-row{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-bottom:17px}
+#mood:before{content:"● ";color:#71915f}
+.small-muted{color:var(--muted);font-size:10px}
+.care{display:flex;gap:8px}
+.care button{flex:1;border:1px solid var(--line);background:#f9faf1;
+  border-radius:11px;padding:13px 4px;font-size:11px}
+.care button:hover{transform:translateY(-2px);background:#edf2e3}
+.care span{display:block;font-size:23px;margin-bottom:6px}
+.pet-note{text-align:center;font-size:10px;color:var(--muted);margin:17px 0 0}
+.chat{height:598px;display:flex;flex-direction:column}
+.icon{background:transparent;border:0;min-width:36px;min-height:36px;font-size:20px}
+.tabs{display:flex;gap:4px;margin:0 22px;background:#f0f2e8;padding:4px;border-radius:10px}
+.tabs button{flex:1;padding:10px 3px;border:0;background:transparent;border-radius:7px;font-size:11px}
+.tabs button[aria-pressed=true]{background:var(--card);box-shadow:0 2px 5px #2339230a;font-weight:650}
+#messages{flex:1;min-height:0;overflow-y:auto;padding:20px 22px 5px}
+.message{max-width:95%;margin-bottom:17px}
+.message.user{margin-left:auto}
+.label{font-size:9px;letter-spacing:1px;font-weight:750;margin-bottom:6px;color:#65765c}
+.user .label{text-align:right}
+.text{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef3e6;
+  padding:13px 15px;border-radius:0 13px 13px;line-height:1.75;font-size:13px}
+.user .text{background:var(--green);color:#fff;border-radius:13px 0 13px 13px}
+.meta{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.6}
+.meta a{color:var(--green)}
+#suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:7px 22px 12px}
+#suggestions button{background:var(--card);border:1px solid var(--line);
+  border-radius:22px;padding:7px 10px;font-size:10px}
+form{padding:0 18px 15px}
+.composer{display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #d5dfcc;
+  border-radius:12px;background:white}
+.composer:focus-within{outline:2px solid #8ca575}
+textarea{flex:1;min-width:0;resize:none;border:0;outline:none;background:transparent;
+  padding:6px;font-size:12px;line-height:1.6;color:var(--ink)}
+#send{border:0;background:var(--green);color:white;border-radius:8px;width:37px;height:37px;font-size:24px}
+.input-note{display:flex;justify-content:space-between;gap:10px;font-size:9px;
+  color:var(--muted);margin:8px 4px 0}
+.voice-panel{display:flex;align-items:center;justify-content:space-between;gap:15px;
+  border:1px solid var(--line);border-radius:13px;padding:17px 20px;
+  background:#eff0e4;margin-top:21px;font-size:11px}
+.voice-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.voice-controls label{display:flex;gap:5px;align-items:center}
+input[type=checkbox]{accent-color:var(--green)}
+select{max-width:180px}
+select,.small-button{border:1px solid #d6decc;background:var(--card);
+  border-radius:6px;padding:7px;font-size:10px;color:var(--ink)}
+footer{padding:22px 0 30px;color:var(--muted);font-size:10px;line-height:1.8}
+footer p{margin:5px 0}
+details{margin-top:9px}
+summary{cursor:pointer}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap}
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr}
+  .intro{display:block}.intro p{margin-top:18px}
+  .voice-panel{align-items:flex-start;flex-direction:column}
+  h1{font-size:51px}.chat{height:600px}
+}
+@media(max-width:480px){
+  header{padding:18px 16px}main{padding:0 15px}.tagline{display:none}
+  h1{font-size:46px}.intro{padding-top:28px}.intro p{font-size:13px}
+  .heading{padding:20px 17px}.subtitle{display:block;margin-top:4px}
+  .level{font-size:7px}.tabs{margin:0 15px}#messages{padding-left:15px;padding-right:15px}
+  .garden{height:295px}.mood-row .small-muted{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-label="BOB">b<span>o</span>b.</div>
+  <span class="tagline">a little friend. a curious mind.</span>
+  <span class="badge">● Browser edition · no AI key</span>
+</header>
+
+<main>
+  <section class="intro">
+    <div>
+      <div class="eyebrow">YOUR LITTLE CORNER OF THE INTERNET</div>
+      <h1>Big feelings.<br>Little monkey.</h1>
+    </div>
+    <p>A softer place to land. Something new to learn.<br>
+      And a pixel-sized pal to brighten your day.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card" aria-labelledby="pet-title">
+      <div class="heading">
+        <div>
+          <div class="eyebrow">MEET YOUR COMPANION</div>
+          <h2 id="pet-title">BOB <span class="subtitle">the curious monkey</span></h2>
+        </div>
+        <span class="level">★ LITTLE EXPLORER</span>
+      </div>
+      <div class="garden">
+        <div class="sun"></div><div class="cloud"></div><div class="cloud two"></div>
+        <div class="hill"></div><div class="hill two"></div><div class="ground"></div>
+        <div id="bubble" role="status">Hey, you. Glad you're here!</div>
+        <canvas id="pet" width="192" height="192" role="img"
+          aria-label="BOB, a smiling brown pixel monkey in a green shirt"></canvas>
+        <span class="flower">✿</span><span class="flower two">✿</span>
+        <span class="garden-label">BOB'S HAPPY PLACE</span>
+      </div>
+      <div class="pet-bottom">
+        <div class="mood-row">
+          <span id="mood">Feeling curious</span>
+          <span class="small-muted">little moments, big smiles</span>
+        </div>
+        <div class="care">
+          <button id="feed"><span>🍌</span>Snack time</button>
+          <button id="play"><span>🫧</span>Let's play</button>
+          <button id="rest"><span>🌙</span>Take a rest</button>
+        </div>
+        <p class="pet-note">No streaks. No guilt. Visit whenever you like.</p>
+      </div>
+    </section>
+
+    <section class="card chat" aria-labelledby="chat-title">
+      <div class="heading">
+        <div>
+          <div class="eyebrow">A SPACE FOR YOU</div>
+          <h2 id="chat-title">What's on your mind?</h2>
+        </div>
+        <button id="clear" class="icon" title="Clear conversation"
+          aria-label="Clear conversation">↺</button>
+      </div>
+      <div class="tabs" role="group" aria-label="Choose a mode">
+        <button data-mode="support" aria-pressed="true">♡ Support</button>
+        <button data-mode="teacher" aria-pressed="false">✧ Teacher</button>
+        <button data-mode="encyclopedia" aria-pressed="false">◎ Encyclopedia</button>
+      </div>
+      <div id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <div id="suggestions"></div>
+      <form id="form">
+        <label for="question" class="sr-only">Message or topic for BOB</label>
+        <div class="composer">
+          <textarea id="question" rows="2" maxlength="500"
+            placeholder="Choose an exercise, or type a topic…" required></textarea>
+          <button id="send" aria-label="Send message" type="submit">↑</button>
+        </div>
+        <div class="input-note">
+          <span>Enter to send · Shift + Enter for a new line</span>
+          <span id="status" role="status"></span>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <section class="voice-panel" aria-label="Voice settings">
+    <div><strong>A familiar little voice.</strong> Let BOB read replies aloud.</div>
+    <div class="voice-controls">
+      <label><input id="read-aloud" type="checkbox"> Read aloud</label>
+      <label class="sr-only" for="voices">Select a voice</label>
+      <select id="voices"><option value="">Device default voice</option></select>
+      <button id="preview" class="small-button">Try voice</button>
+      <button id="stop" class="icon" title="Stop speaking" aria-label="Stop speaking">■</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made for curiosity. Built with a little kindness. 🍌</p>
+    <p><strong>Browser edition:</strong> preset support exercises, built-in lessons, and Wikipedia lookups—not conversational AI or professional care. Important information deserves a second check.</p>
+    <details>
+      <summary>Privacy, voice, and content notes</summary>
+      <p>Support exercises and built-in lessons run on this page. Other knowledge searches send your topic to English Wikipedia. Do not enter confidential work information or sensitive personal details.</p>
+      <p>This app does not save your chat or use analytics. Reloading clears the conversation. Hosting and external services may keep their own access logs.</p>
+      <p>Read-aloud uses your browser's speech service. Voice availability and quality vary; some voices may send text to an online speech provider. It is off by default.</p>
+      <p>Wikipedia excerpts are attributed and linked to their source articles. They remain subject to Wikipedia's applicable content licenses, including CC BY-SA. Search matches are not guaranteed to answer your question.</p>
+      <p>BOB cannot assess emergencies or reliably recognize distress. If you are in immediate danger, contact local emergency services or a trusted person nearby.</p>
+    </details>
+  </footer>
+</main>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const log = $("#messages");
+const input = $("#question");
+const speech = window.speechSynthesis;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let mode = "support";
+let busy = false;
+let sleepy = false;
+let talking = false;
+let voiceList = [];
+let petTimer;
+let lessonIndex = 0;
+let lastReply = "";
+
+const prompts = {
+  support: ["Take a calming pause", "Help me ground myself", "One small step"],
+  teacher: ["Teach me fractions", "Explain photosynthesis", "Surprise lesson"],
+  encyclopedia: ["Octopuses", "Black holes", "Ada Lovelace"]
+};
+
+const exercises = {
+  calm: "Let's make a little room to breathe.\n\n1. Sit or stand in a comfortable position.\n2. Let your shoulders soften, if that feels okay.\n3. Take three easy breaths at your natural pace—no holding or forcing.\n4. Notice one thing around you that feels neutral or pleasant.\n\nYou can stop whenever you want. One gentle pause is enough.",
+  ground: "A small grounding exercise:\n\n• Name 5 things you can see.\n• Notice 4 things you can feel, like your feet on the floor.\n• Listen for 3 sounds.\n• Notice 2 smells, or name two smells you like.\n• Name 1 kind thing you can do for yourself.\n\nAdapt or skip any step that doesn't suit you.",
+  step: "You don't have to solve the entire day at once.\n\nPick one small, manageable action:\n• Drink some water.\n• Put one item away.\n• Write down the next task—not the whole list.\n• Send a simple check-in to someone you trust.\n\nRest is a valid choice too.",
+  connect: "A real-world check-in can help make a hard moment less lonely.\n\nYou could message someone you trust:\n“Today has been a bit rough. Do you have a few minutes to talk?”\n\nYou don't need to explain everything at once. If this has been going on for a while, consider reaching out to a qualified mental health professional."
+};
+
+const lessons = [
+  {
+    title: "Fractions",
+    text: "A fraction describes parts of a whole divided into equal pieces.\n\nIn 3/4:\n• 4 is the denominator: the whole has four equal parts.\n• 3 is the numerator: you're counting three of them.\n\nExample: cut a banana into four equal pieces. Eat three, and you've eaten 3/4 of it. 🍌\n\nPractice: what is 1/4 + 2/4?\nAnswer: 3/4. With equal denominators, add the numerators."
+  },
+  {
+    title: "Photosynthesis",
+    text: "Photosynthesis is how plants, algae, and some bacteria use light energy to make chemical energy.\n\nIn plants, chlorophyll absorbs light. The process uses water and carbon dioxide to help make sugars and releases oxygen.\n\nThink of a leaf as a tiny solar-powered food factory—not as a plant eating soil.\n\nPractice: where does most of the carbon in a growing tree come from?\nAnswer: carbon dioxide in the air."
+  },
+  {
+    title: "Gravity",
+    text: "Gravity is the attraction associated with mass and energy.\n\nNear Earth's surface, it pulls things toward the ground. It also helps keep the Moon in orbit around Earth and Earth in orbit around the Sun.\n\nAn orbit is like continually falling while moving sideways fast enough to keep missing the ground.\n\nPractice: is there gravity on the Moon?\nAnswer: yes—its surface gravity is about one-sixth of Earth's."
+  },
+  {
+    title: "Why the sky is blue",
+    text: "Sunlight contains many colors. Molecules in Earth's atmosphere scatter shorter wavelengths more strongly than longer ones.\n\nBlue light is scattered across the sky, reaching your eyes from many directions. Our eyes' sensitivity and the spectrum of sunlight help explain why the sky looks blue rather than violet.\n\nAt sunset, sunlight travels through more atmosphere, so more blue light is scattered out of the direct path, often leaving warmer colors."
+  }
+];
+
+function addMessage(role, text, source = "", url = "") {
+  const article = document.createElement("article");
+  article.className = "message " + role;
+  const label = document.createElement("div");
+  label.className = "label";
+  label.textContent = role === "user" ? "YOU" : "BOB · YOUR PIXEL PAL";
+  const body = document.createElement("div");
+  body.className = "text";
+  body.textContent = text;
+  article.append(label, body);
+
+  if (source) {
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = source;
+    if (url) {
+      try {
+        const linkURL = new URL(url);
+        if (linkURL.protocol === "https:" && linkURL.hostname === "en.wikipedia.org") {
+          const link = document.createElement("a");
+          link.href = linkURL.href;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = " · Read source ↗";
+          meta.append(link);
+        }
+      } catch {}
+    }
+    article.append(meta);
+  }
+
+  log.append(article);
+  while (log.children.length > 70) log.firstElementChild.remove();
+  log.scrollTop = log.scrollHeight;
+}
+
+function reply(text, source = "", url = "") {
+  lastReply = text;
+  addMessage("assistant", text, source, url);
+  if ($("#read-aloud").checked) speak(text);
+}
+
+function welcome() {
+  reply(
+    "Hey, I'm BOB. 🍌\nA tiny monkey for little pauses and big curiosities.\n\nChoose Support for a preset calming exercise, Teacher for a mini lesson, or Encyclopedia to look up a topic.\n\nThis edition isn't conversational AI, but there's still plenty to explore!",
+    "Browser edition · no account or API key needed"
+  );
+}
+
+function renderPrompts() {
+  $("#suggestions").replaceChildren();
+  for (const text of prompts[mode]) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = text;
+    button.disabled = busy;
+    button.onclick = () => {
+      input.value = text;
+      $("#form").requestSubmit();
+    };
+    $("#suggestions").append(button);
+  }
+}
+
+function setBusy(value) {
+  busy = value;
+  $("#send").disabled = value;
+  $("#clear").disabled = value;
+  document.querySelectorAll("[data-mode]").forEach(b => b.disabled = value);
+  $("#status").textContent = value ? "Looking it up…" : "";
+  renderPrompts();
+}
+
+document.querySelectorAll("[data-mode]").forEach(button => {
+  button.onclick = () => {
+    if (busy) return;
+    stopSpeech();
+    mode = button.dataset.mode;
+    document.querySelectorAll("[data-mode]").forEach(b =>
+      b.setAttribute("aria-pressed", String(b === button))
+    );
+    input.placeholder = mode === "support"
+      ? "Try “calming pause” or “one small step”…"
+      : "Type a topic you want to explore…";
+    renderPrompts();
+  };
+});
+
+function support(text) {
+  const t = text.toLowerCase();
+  let exercise = exercises.calm;
+  if (/ground|panic|overwhelm/.test(t)) exercise = exercises.ground;
+  else if (/step|task|motivat|stuck/.test(t)) exercise = exercises.step;
+  else if (/lonely|alone|friend|connect/.test(t)) exercise = exercises.connect;
+
+  return "This is a preset exercise, not a personalized assessment.\n\n" + exercise;
+}
+
+function findLesson(text) {
+  const t = text.toLowerCase();
+  if (/surprise|random lesson|something new/.test(t)) {
+    const lesson = lessons[lessonIndex % lessons.length];
+    lessonIndex++;
+    return lesson;
+  }
+  if (/fraction/.test(t)) return lessons[0];
+  if (/photosynth/.test(t)) return lessons[1];
+  if (/gravity|gravitation/.test(t)) return lessons[2];
+  if (/sky.*blue|blue.*sky/.test(t)) return lessons[3];
+  return null;
+}
+
+async function lookup(text) {
+  const topic = text
+    .replace(/^(hey bob[,!]?\s*)/i, "")
+    .replace(/^(what is|what are|who is|who was|tell me about|explain|define)\s+/i, "")
+    .replace(/[?!.]+$/, "")
+    .trim().slice(0, 180);
+
+  if (!topic) {
+    reply("Try a topic such as “ocean currents,” “Ada Lovelace,” or “Saturn.”");
+    return;
+  }
+
+  const url = new URL("https://en.wikipedia.org/w/api.php");
+  url.search = new URLSearchParams({
+    action: "query",
+    generator: "search",
+    gsrsearch: topic,
+    gsrlimit: "1",
+    prop: "extracts|info",
+    exintro: "1",
+    explaintext: "1",
+    exchars: "1800",
+    inprop: "url",
+    format: "json",
+    origin: "*"
+  });
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 14000);
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      credentials: "omit",
+      referrerPolicy: "no-referrer"
+    });
+    if (!response.ok) throw new Error("Lookup unavailable");
+    const data = await response.json();
+    if (data.error) throw new Error("Lookup unavailable");
+
+    const page = Object.values(data.query?.pages || {})[0];
+    if (!page?.extract) {
+      reply(
+        "I couldn't find a useful article excerpt for that topic. Try a shorter, more specific subject.\n\nI search Wikipedia in this edition—I can't reason through every question.",
+        "Wikipedia lookup · no useful match"
+      );
+      return;
+    }
+    reply(
+      page.title + "\n\n" + page.extract +
+      "\n\nThis is a search-matched article excerpt, not a verified answer to every part of your question.",
+      "Source: English Wikipedia · CC BY-SA",
+      page.fullurl || "https://en.wikipedia.org/?curid=" + page.pageid
+    );
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+$("#form").addEventListener("submit", async event => {
+  event.preventDefault();
+  const text = input.value.trim();
+  if (!text || busy) return;
+  input.value = "";
+  stopSpeech();
+  addMessage("user", text);
+  setBusy(true);
+
+  try {
+    // A limited safety cue, not a distress-detection system.
+    if (/\b(kill myself|hurt myself|end my life|suicidal)\b/i.test(text)) {
+      reply(
+        "If this describes how you're feeling, please reach out to a real person now. I can't assess your safety or provide crisis care.\n\nIf you may act on these thoughts or have already harmed yourself, call local emergency services or go to the nearest emergency department. If you can, move away from anything you could use to hurt yourself and ask someone you trust to stay with you.\n\nIn the U.S. or Canada, call or text 988. Elsewhere, contact your local crisis service.",
+        "Preset safety information · not a personalized assessment"
+      );
+    } else if (/^(hi|hello|hey|hey bob|hello bob)[!.\s]*$/i.test(text)) {
+      reply("Hey there! 🍌 Pick a calming exercise, explore a lesson, or give me a topic to look up.", "Preset greeting");
+    } else if (mode === "support") {
+      reply(support(text), "Preset support exercise · not professional care");
+    } else if (mode === "teacher" && findLessonCandidate(text)) {
+      const lesson = findLesson(text);
+      reply(lesson.title + "\n\n" + lesson.text, "Built-in mini lesson · not generated AI");
+    } else {
+      await lookup(text);
+    }
+  } catch {
+    reply(
+      "My Wikipedia connection didn't work. Your connection, Wikipedia, or a network restriction may be the cause.\n\nYou can still play with BOB, use Support, or try a built-in lesson about fractions, photosynthesis, or gravity.",
+      "Lookup failed · no answer retrieved"
+    );
+  } finally {
+    setBusy(false);
+    input.focus();
+  }
+});
+
+function findLessonCandidate(text) {
+  return /surprise|random lesson|something new|fraction|photosynth|gravity|gravitation|sky.*blue|blue.*sky/i.test(text);
+}
+
+input.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+    event.preventDefault();
+    $("#form").requestSubmit();
+  }
+});
+
+$("#clear").onclick = () => {
+  if (busy || !confirm("Clear the conversation on this page?")) return;
+  stopSpeech();
+  log.replaceChildren();
+  welcome();
+};
+
+function stopSpeech() {
+  if (speech) speech.cancel();
+  talking = false;
+}
+
+function speak(text) {
+  if (!speech || !window.SpeechSynthesisUtterance) return;
+  stopSpeech();
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voice = voiceList.find(v => v.voiceURI === $("#voices").value);
+  if (voice) utterance.voice = voice;
+  utterance.lang = voice?.lang || "en-US";
+  utterance.rate = 0.95;
+  utterance.pitch = 1.05;
+  utterance.onstart = () => { talking = true; };
+  utterance.onend = () => { talking = false; };
+  utterance.onerror = event => {
+    talking = false;
+    if (!["interrupted", "canceled"].includes(event.error)) {
+      $("#status").textContent = "Voice unavailable—try another voice.";
+    }
+  };
+  speech.speak(utterance);
+}
+
+function loadVoices() {
+  if (!speech) return;
+  const previous = $("#voices").value;
+  voiceList = speech.getVoices();
+  $("#voices").replaceChildren(new Option("Device default voice", ""));
+  for (const voice of voiceList) {
+    $("#voices").add(new Option(
+      voice.name + " (" + voice.lang + ")", voice.voiceURI
+    ));
+  }
+  if (previous && voiceList.some(v => v.voiceURI === previous)) {
+    $("#voices").value = previous;
+  } else {
+    const preferred = voiceList.find(v =>
+      /^en/i.test(v.lang) && /samantha|aria|jenny|natural|google/i.test(v.name)
+    );
+    if (preferred) $("#voices").value = preferred.voiceURI;
+  }
+}
+
+if (speech && window.SpeechSynthesisUtterance) {
+  loadVoices();
+  speech.addEventListener("voiceschanged", loadVoices);
+} else {
+  $("#read-aloud").disabled = true;
+  $("#preview").disabled = true;
+  $("#voices").disabled = true;
+  $("#preview").textContent = "Voice not supported";
+}
+$("#preview").onclick = () => speak(
+  "Hey, I'm Bob. One little step at a time. Also, have you seen my banana?"
+);
+$("#stop").onclick = stopSpeech;
+$("#read-aloud").onchange = () => {
+  if ($("#read-aloud").checked && lastReply) speak(lastReply);
+  else stopSpeech();
+};
+window.addEventListener("pagehide", stopSpeech);
+
+function petReaction(text, mood, sleep = false) {
+  clearTimeout(petTimer);
+  sleepy = sleep;
+  $("#bubble").textContent = text;
+  $("#mood").textContent = mood;
+  petTimer = setTimeout(() => {
+    sleepy = false;
+    $("#bubble").textContent = "One small adventure at a time.";
+    $("#mood").textContent = "Feeling curious";
+  }, sleep ? 15000 : 7000);
+}
+
+$("#feed").onclick = () =>
+  petReaction("A-peeling. Absolutely a-peeling. 🍌", "Feeling snack-tastic");
+
+$("#play").onclick = () => {
+  const lines = [
+    "Tiny dance break? Wiggle your shoulders!",
+    "Name something yellow. I vote banana.",
+    "Why did the banana go out? It had a-peel!",
+    "A little silliness counts as a good moment."
+  ];
+  petReaction(lines[Math.floor(Math.random() * lines.length)], "Feeling playful");
+};
+
+$("#rest").onclick = () =>
+  petReaction("A little rest is allowed. zzz", "Taking a cozy pause", true);
+
+// Original hand-placed pixel monkey.
+const pixels = [
+  ".........HHHHHH.........",
+  ".......HHBBBBBBHH.......",
+  "......HBBBBBBBBBBH......",
+  ".....HBBBBBBBBBBBBH.....",
+  "..HHHHBBTTBBBBTTBBHHHH..",
+  ".HBBTHBTTTTTTTTTTBHTBBH.",
+  ".HBTTHBTTTTTTTTTTBHTTBH.",
+  ".HBBTHBTTETTTTETTBHTBBH.",
+  "..HHHHBTTETTTTETTBHHHH..",
+  ".....HBTTTTNNTTTTBH.....",
+  "......HTTTRRRTTTTH......",
+  ".......HTTTTTTTTH.......",
+  "......HHBTTTTTTBHH......",
+  ".....HBBBGGGGGGBBBH.....",
+  "....HBBBBGGYGGGBBBBH....",
+  "....HBTBBGGGGGGBBTBH....",
+  "...HBTTHBGGGGGBHTTBH....",
+  "...HTTTHBGGGGGBHTTTH.HH.",
+  "....HHHBBGGGGBBBHHH.HBBH",
+  "......HBBBBBBBBH....HBBH",
+  ".....HBBBH..HBBBH..HBBH.",
+  "....HTTTH....HTTTHHBBH..",
+  "....HHHH......HHHHHHH...",
+  "........................"
+];
+const palette = {
+  H:"#593923", B:"#966037", T:"#e5b57d",
+  E:"#252d29", N:"#875034", R:"#b56956",
+  G:"#637e50", Y:"#e9c566"
+};
+const ctx = $("#pet").getContext("2d");
+
+function drawPet() {
+  if (!ctx || document.hidden) return;
+  ctx.clearRect(0, 0, 192, 192);
+  ctx.fillStyle = "#45663822";
+  ctx.fillRect(47, 165, 104, 8);
+
+  const blink = !reducedMotion.matches && Date.now() % 4300 < 170;
+  pixels.forEach((row, y) => {
+    [...row].forEach((pixel, x) => {
+      if (pixel === ".") return;
+      const px = 24 + x * 6;
+      const py = 27 + y * 6;
+      ctx.fillStyle = palette[pixel];
+      if (pixel === "E" && (blink || sleepy)) {
+        ctx.fillStyle = palette.T;
+        ctx.fillRect(px, py, 6, 6);
+        if (y === 8) {
+          ctx.fillStyle = palette.E;
+          ctx.fillRect(px, py + 2, 6, 2);
+        }
+      } else {
+        ctx.fillRect(px, py, 6, 6);
+      }
+    });
+  });
+  if (talking && !sleepy && !reducedMotion.matches &&
+      Math.floor(Date.now() / 180) % 2) {
+    ctx.fillStyle = palette.H;
+    ctx.fillRect(90, 88, 18, 7);
+  }
+}
+
+drawPet();
+setInterval(drawPet, 100);
+welcome();
+renderPrompts();
+</script>
+</body>
+</html>
