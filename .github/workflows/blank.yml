@@ -1,36 +1,70 @@
-# This is a basic workflow to help you get started with Actions
+name: Deploy BOB to GitHub Pages
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Deploy when the website or this workflow changes.
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - ".github/workflows/deploy-bob.yml"
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allow manual deployment from the Actions tab.
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Each job receives only the permissions it needs.
+permissions:
+  contents: read
+
+# Avoid overlapping production deployments.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: Prepare BOB website
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Check that BOB exists
+        shell: bash
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          if [ ! -s index.html ]; then
+            echo "::error::index.html is missing or empty. Put it in the repository root."
+            exit 1
+          fi
+
+      - name: Prepare website files
+        shell: bash
+        run: |
+          mkdir -p _site
+          cp index.html _site/index.html
+          touch _site/.nojekyll
+
+      # Only the prepared website is uploaded—not the full repository.
+      - name: Upload website artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Publish BOB
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
